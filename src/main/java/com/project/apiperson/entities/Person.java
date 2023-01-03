@@ -1,10 +1,9 @@
 package com.project.apiperson.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 
 @Entity
 @Table(name = "tb_person")
@@ -12,27 +11,40 @@ public class Person {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private UUID id;
+    private Integer id;
     private String name;
+    private String email;
+    @Column(unique = true)
+    private String cpf;
     private Date dateOfBirth;
 
-    @OneToMany
-    private Set<Address> addresses = new HashSet<>();
+    @OneToMany(mappedBy = "person")
+    private List<Address> addresses = new ArrayList<>();
 
     public Person() {
     }
 
-    public Person(UUID id, String name, Date dateOfBirth) {
+    public Person(Integer id, String name, String email, String cpf, Date dateOfBirth) {
         this.id = id;
         this.name = name;
+        this.email = email;
+        this.cpf = cpf;
         this.dateOfBirth = dateOfBirth;
     }
 
-    public UUID getId() {
+    public Person(Person newPerson) {
+        Person person = newPerson.setId(null);
+        person.setName(newPerson.getName());
+        person.setEmail(newPerson.getEmail());
+        person.setAddresses(newPerson.getAddresses());
+        person.setDateOfBirth(newPerson.getDateOfBirth());
+    }
+
+    public Integer getId() {
         return id;
     }
 
-    public Person setId(UUID id) {
+    public Person setId(Integer id) {
         this.id = id;
         return this;
     }
@@ -46,8 +58,17 @@ public class Person {
         return this;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public Person setEmail(String email) {
+        this.email = email;
+        return this;
+    }
+
     public Date getDateOfBirth() {
-        return dateOfBirth;
+        return this.dateOfBirth;
     }
 
     public Person setDateOfBirth(Date dateOfBirth) {
@@ -55,11 +76,20 @@ public class Person {
         return this;
     }
 
-    public Set<Address> getAddresses() {
+    public String getCpf() {
+        return cpf;
+    }
+
+    public Person setCpf(String cpf) {
+        this.cpf = cpf;
+        return this;
+    }
+
+    public List<Address> getAddresses() {
         return addresses;
     }
 
-    public Person setAddresses(Set<Address> addresses) {
+    public Person setAddresses(List<Address> addresses) {
         this.addresses = addresses;
         return this;
     }
