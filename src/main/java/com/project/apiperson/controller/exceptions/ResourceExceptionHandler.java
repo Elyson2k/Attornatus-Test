@@ -32,7 +32,7 @@ public class ResourceExceptionHandler {
 
 	@ExceptionHandler(SQLIntegrityConstraintViolationException.class)
 	public ResponseEntity<StandardError> sqlError(SQLIntegrityConstraintViolationException e, HttpServletRequest request){
-		StandardError err = new StandardError(HttpStatus.CONFLICT.value(), "Error: CPF is already being used.", System.currentTimeMillis());
+		StandardError err = new StandardError(HttpStatus.CONFLICT.value(), "Error: Some field is being filled wrong, please fill in correctly.", System.currentTimeMillis());
 		return ResponseEntity.status(HttpStatus.CONFLICT).body(err);
 	}
 
@@ -45,7 +45,7 @@ public class ResourceExceptionHandler {
 	@ExceptionHandler(MethodArgumentNotValidException.class)
 	public ResponseEntity<StandardError> methodValidation( MethodArgumentNotValidException e, HttpServletRequest request){
 		
-		ValidationError err = new ValidationError(HttpStatus.BAD_REQUEST.value(), "Erros de validação", System.currentTimeMillis());
+		ValidationError err = new ValidationError(HttpStatus.BAD_REQUEST.value(), "Validation errors", System.currentTimeMillis());
 		
 		for(FieldError x :  e.getBindingResult().getFieldErrors()) {
 			err.addError(x.getField(), x.getDefaultMessage());

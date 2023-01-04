@@ -31,7 +31,7 @@ public class AddressController {
         logger.info("m=findAddress stage=init id={}", id);
         Address address = addressService.findAddressByID(id);
         var newAddress = new AddressDto(address);
-        logger.info("m=findAddress stage=finish person={}", newAddress);
+        logger.info("m=findAddress stage=finish newAddress={}", newAddress);
         return ResponseEntity.ok(newAddress);
     }
 
