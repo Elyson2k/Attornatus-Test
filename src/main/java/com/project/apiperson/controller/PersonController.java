@@ -1,9 +1,10 @@
 package com.project.apiperson.controller;
 
-import com.project.apiperson.entities.Person;
-import com.project.apiperson.entities.dto.PersonAll;
-import com.project.apiperson.entities.dto.PersonDto;
-import com.project.apiperson.entities.dto.PersonPost;
+import com.project.apiperson.domain.dto.PersonPut;
+import com.project.apiperson.domain.entities.Person;
+import com.project.apiperson.domain.dto.PersonAll;
+import com.project.apiperson.domain.dto.PersonDto;
+import com.project.apiperson.domain.dto.PersonPost;
 import com.project.apiperson.service.PersonService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -37,7 +38,7 @@ public class PersonController {
     }
 
     @PutMapping(value = "/{id}")
-    public ResponseEntity<Void> updatePerson(@PathVariable Integer id,@Valid @RequestBody PersonDto person){
+    public ResponseEntity<Void> updatePerson(@PathVariable Integer id,@Valid @RequestBody PersonPut person){
         person.setId(id);
         var newPerson = personService.chancePerson(person);
         var newPersonUpdate = new Person(newPerson);
@@ -45,12 +46,10 @@ public class PersonController {
     }
 
     @PostMapping
-    public ResponseEntity<Void> insertPerson(@Valid @RequestBody PersonPost personDto){
-        var id = personService.insertPerson(personDto).getId();
+    public ResponseEntity<Void> insertPerson(@Valid @RequestBody PersonPost personPost){
+        var id = personService.insertPerson(personPost).getId();
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(id).toUri();
         return ResponseEntity.created(uri).build();
     }
-
-
 
 }
