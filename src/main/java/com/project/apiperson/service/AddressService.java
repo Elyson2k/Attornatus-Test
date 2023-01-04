@@ -1,10 +1,10 @@
 package com.project.apiperson.service;
 
-import com.project.apiperson.entities.Address;
-import com.project.apiperson.entities.City;
-import com.project.apiperson.entities.Person;
-import com.project.apiperson.entities.dto.AddressAll;
-import com.project.apiperson.entities.dto.AddressPost;
+import com.project.apiperson.domain.entities.Address;
+import com.project.apiperson.domain.entities.City;
+import com.project.apiperson.domain.entities.Person;
+import com.project.apiperson.domain.dto.AddressAll;
+import com.project.apiperson.domain.dto.AddressPost;
 import com.project.apiperson.repository.AddressRepository;
 import com.project.apiperson.repository.PersonRepository;
 import com.project.apiperson.service.exceptions.CustomExceptions;
@@ -21,8 +21,7 @@ public class AddressService {
     private final PersonService personService;
     private final CityService cityService;
 
-    public AddressService(AddressRepository addressRepository, PersonService personService,
-                          CityService cityService, PersonRepository personRepository) {
+    public AddressService(AddressRepository addressRepository, PersonService personService, CityService cityService, PersonRepository personRepository) {
         this.addressRepository = addressRepository;
         this.personService = personService;
         this.cityService = cityService;
@@ -34,7 +33,7 @@ public class AddressService {
                 .orElseThrow( () -> new ObjectNotFoundException("Error: Entity not found.") );
     }
 
-    public List<AddressAll> listAddress(){
+    public List<AddressAll> findAllAddresses(){
         List<AddressAll> listAddress = findAllAddress();
         if(listAddress.isEmpty()){
             throw new CustomExceptions("Error: no address found.");
@@ -43,7 +42,8 @@ public class AddressService {
 
     public Address insertAddressForPerson(AddressPost addressPost){
         Address address = fromDto(addressPost);
-        return addressRepository.save(address);
+        addressRepository.save(address);
+        return address;
     }
 
     private Address fromDto(AddressPost addressPost){
