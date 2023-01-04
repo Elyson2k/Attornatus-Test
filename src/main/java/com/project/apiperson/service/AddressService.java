@@ -1,5 +1,6 @@
 package com.project.apiperson.service;
 
+import com.project.apiperson.controller.AddressController;
 import com.project.apiperson.domain.entities.Address;
 import com.project.apiperson.domain.entities.City;
 import com.project.apiperson.domain.entities.Person;
@@ -9,14 +10,18 @@ import com.project.apiperson.repository.AddressRepository;
 import com.project.apiperson.repository.PersonRepository;
 import com.project.apiperson.service.exceptions.CustomExceptions;
 import com.project.apiperson.service.exceptions.ObjectNotFoundException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
 public class AddressService {
 
+    private final Logger logger = LoggerFactory.getLogger(AddressController.class);
     private final AddressRepository addressRepository;
     private final PersonService personService;
     private final CityService cityService;
@@ -29,13 +34,17 @@ public class AddressService {
     }
 
     public Address findAddressByID(Integer id){
-        return addressRepository.findById(id)
-                .orElseThrow( () -> new ObjectNotFoundException("Error: Entity not found.") );
+        Optional<Address> address = addressRepository.findById(id);
+        if(!(address.isPresent())){
+            logger.error("m=findAddressByID stage=error id={}", id);
+            throw new ObjectNotFoundException("Error: Entity not found.");
+        } else return address.get();
     }
 
     public List<AddressAll> findAllAddresses(){
         List<AddressAll> listAddress = findAllAddress();
         if(listAddress.isEmpty()){
+            logger.error("m=findAllAddresses stage=error listAddress={}", listAddress);
             throw new CustomExceptions("Error: no address found.");
         } else return listAddress;
     }

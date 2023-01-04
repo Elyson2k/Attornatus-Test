@@ -1,5 +1,6 @@
 package com.project.apiperson.service;
 
+import com.project.apiperson.controller.AddressController;
 import com.project.apiperson.domain.dto.PersonPut;
 import com.project.apiperson.domain.entities.Address;
 import com.project.apiperson.domain.entities.City;
@@ -12,6 +13,8 @@ import com.project.apiperson.repository.PersonRepository;
 import com.project.apiperson.service.exceptions.DataIntegrityViolationException;
 import com.project.apiperson.service.exceptions.ObjectNotFoundException;
 import com.project.apiperson.service.exceptions.CustomExceptions;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
@@ -23,6 +26,7 @@ import java.util.stream.Collectors;
 @Service
 public class PersonService {
 
+    private final Logger logger = LoggerFactory.getLogger(AddressController.class);
     private final PersonRepository personRepository;
 
     private final AddressRepository addressRepository;
@@ -33,13 +37,17 @@ public class PersonService {
     }
 
     public Person findPersonByID(Integer id){
-        return personRepository.findById(id)
-                .orElseThrow( () -> new ObjectNotFoundException("Error: Entity not found.") );
+        Optional<Person> person = personRepository.findById(id);
+        if(!(person.isPresent())){
+            logger.error("m=findCityByID stage=error id={}", id);
+            throw new ObjectNotFoundException("Error: Entity not found.");
+        } else return person.get();
     }
 
     public List<PersonAll> findAllPerson(){
         List<PersonAll> listPerson = personRepository.findAll().stream().map( obj -> new PersonAll(obj)).collect(Collectors.toList());
         if(listPerson.isEmpty()){
+            logger.error("m=findAllPerson stage=error listPerson={}", listPerson);
             throw new CustomExceptions("Error: no person found.");
         } else return listPerson;
     }
@@ -47,7 +55,6 @@ public class PersonService {
     public Person insertPerson(PersonPost person){
         findEmail(person);
         Person personEntity = fromDto(person);
-
         personRepository.save(personEntity);
         addressRepository.saveAll(personEntity.getAddresses());
         return personEntity;
@@ -69,6 +76,7 @@ public class PersonService {
     public void findEmail(PersonPost person){
         Optional<Person> findEmail = personRepository.findByEmail(person.getEmail());
         if(findEmail.isPresent()){
+            logger.error("m=findEmail stage=error findEmail={}", findEmail.get().getEmail());
             throw new DataIntegrityViolationException("Error: email is already being used.");
         }
     }
