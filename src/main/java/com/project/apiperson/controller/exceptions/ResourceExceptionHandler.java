@@ -23,21 +23,21 @@ public class ResourceExceptionHandler {
 		StandardError err = new StandardError(HttpStatus.NOT_FOUND.value(), e.getMessage(), System.currentTimeMillis());
 		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(err);
 	}
-	
+
 	@ExceptionHandler(DataIntegrityViolationException.class)
-	public ResponseEntity<StandardError> objNotFound(DataIntegrityViolationException e, HttpServletRequest request){
+	public ResponseEntity<StandardError> dataIntegrity(DataIntegrityViolationException e, HttpServletRequest request){
 		StandardError err = new StandardError(HttpStatus.NOT_FOUND.value(), e.getMessage(), System.currentTimeMillis());
 		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(err);
 	}
 
 	@ExceptionHandler(SQLIntegrityConstraintViolationException.class)
-	public ResponseEntity<StandardError> objNotFound(SQLIntegrityConstraintViolationException e, HttpServletRequest request){
+	public ResponseEntity<StandardError> sqlError(SQLIntegrityConstraintViolationException e, HttpServletRequest request){
 		StandardError err = new StandardError(HttpStatus.CONFLICT.value(), "Error: CPF is already being used.", System.currentTimeMillis());
 		return ResponseEntity.status(HttpStatus.CONFLICT).body(err);
 	}
 
 	@ExceptionHandler(CustomExceptions.class)
-	public ResponseEntity<StandardError> objNotFound(CustomExceptions e, HttpServletRequest request){
+	public ResponseEntity<StandardError> customError(CustomExceptions e, HttpServletRequest request){
 		StandardError err = new StandardError(HttpStatus.NOT_FOUND.value(), e.getMessage(), System.currentTimeMillis());
 		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(err);
 	}
@@ -45,7 +45,7 @@ public class ResourceExceptionHandler {
 	@ExceptionHandler(MethodArgumentNotValidException.class)
 	public ResponseEntity<StandardError> methodValidation( MethodArgumentNotValidException e, HttpServletRequest request){
 		
-		ValidationError err = new ValidationError(HttpStatus.BAD_REQUEST.value(), "Erros de validação ", System.currentTimeMillis());
+		ValidationError err = new ValidationError(HttpStatus.BAD_REQUEST.value(), "Erros de validação", System.currentTimeMillis());
 		
 		for(FieldError x :  e.getBindingResult().getFieldErrors()) {
 			err.addError(x.getField(), x.getDefaultMessage());
