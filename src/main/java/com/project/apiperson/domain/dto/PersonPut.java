@@ -44,4 +44,13 @@ public class PersonPut {
         this.id = id;
         return this;
     }
+
+    @Override
+    public String toString() {
+        return "PersonPut{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", email='" + email + '\'' +
+                '}';
+    }
 }

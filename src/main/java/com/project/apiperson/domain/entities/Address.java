@@ -58,7 +58,6 @@ public class Address {
         return person;
     }
 
-
     public City getCity() {
         return city;
     }

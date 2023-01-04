@@ -92,4 +92,15 @@ public class PersonDto {
         return cpf;
     }
 
+    @Override
+    public String toString() {
+        return "PersonDto{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", email='" + email + '\'' +
+                ", cpf='" + cpf + '\'' +
+                ", dateOfBirth=" + dateOfBirth +
+                ", addresses=" + addresses.toString() +
+                '}';
+    }
 }

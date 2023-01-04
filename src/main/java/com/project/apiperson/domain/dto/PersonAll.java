@@ -69,4 +69,14 @@ public class PersonAll {
         return dateOfBirth;
     }
 
+    @Override
+    public String toString() {
+        return "PersonAll{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", email='" + email + '\'' +
+                ", cpf='" + cpf + '\'' +
+                ", dateOfBirth=" + dateOfBirth +
+                '}';
+    }
 }

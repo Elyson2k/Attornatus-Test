@@ -97,4 +97,17 @@ public class PersonPost {
         return cityId;
     }
 
+    @Override
+    public String toString() {
+        return "PersonPost{" +
+                "name='" + name + '\'' +
+                ", email='" + email + '\'' +
+                ", cpf='" + cpf + '\'' +
+                ", dateOfBirth=" + dateOfBirth +
+                ", street='" + street + '\'' +
+                ", zipCode='" + zipCode + '\'' +
+                ", number=" + number +
+                ", cityId=" + cityId +
+                '}';
+    }
 }

@@ -42,4 +42,13 @@ public class AddressAll {
         return number;
     }
 
+    @Override
+    public String toString() {
+        return "AddressAll{" +
+                "id=" + id +
+                ", street='" + street + '\'' +
+                ", zipCode='" + zipCode + '\'' +
+                ", number=" + number +
+                '}';
+    }
 }

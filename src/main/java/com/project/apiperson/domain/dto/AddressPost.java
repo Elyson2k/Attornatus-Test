@@ -51,4 +51,15 @@ public class AddressPost {
         return cityId;
     }
 
+    @Override
+    public String toString() {
+        return "AddressPost{" +
+                "id=" + id +
+                ", street='" + street + '\'' +
+                ", zipCode='" + zipCode + '\'' +
+                ", number=" + number +
+                ", personId=" + personId +
+                ", cityId=" + cityId +
+                '}';
+    }
 }

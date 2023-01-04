@@ -51,5 +51,14 @@ public class AddressDto {
         return city;
     }
 
-
+    @Override
+    public String toString() {
+        return "AddressDto{" +
+                "id=" + id +
+                ", street='" + street + '\'' +
+                ", zipCode='" + zipCode + '\'' +
+                ", number=" + number +
+                ", city=" + city.getName() +
+                '}';
+    }
 }
