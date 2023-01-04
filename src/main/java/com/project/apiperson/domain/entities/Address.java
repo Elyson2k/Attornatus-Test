@@ -2,6 +2,7 @@ package com.project.apiperson.domain.entities;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.ToString;
 
 import javax.persistence.*;
 
@@ -16,11 +17,13 @@ public class Address {
     private String zipCode;
     private Integer number;
 
+    @ToString.Exclude
     @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "person_id")
     private Person person;
 
+    @ToString.Exclude
     @ManyToOne
     private City city;
 
@@ -62,4 +65,15 @@ public class Address {
         return city;
     }
 
+    @Override
+    public String toString() {
+        return "Address{" +
+                "id=" + id +
+                ", street='" + street + '\'' +
+                ", zipCode='" + zipCode + '\'' +
+                ", number=" + number +
+                ", person=" + person.getName() +
+                ", city=" + city +
+                '}';
+    }
 }

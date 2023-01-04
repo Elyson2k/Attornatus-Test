@@ -37,4 +37,11 @@ public class City {
         return this;
     }
 
+    @Override
+    public String toString() {
+        return "City{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                '}';
+    }
 }

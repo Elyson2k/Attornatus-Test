@@ -1,5 +1,7 @@
 package com.project.apiperson.domain.entities;
 
+import lombok.ToString;
+
 import javax.persistence.*;
 import java.util.*;
 
@@ -16,7 +18,8 @@ public class Person {
     private String cpf;
     private Date dateOfBirth;
 
-    @OneToMany(mappedBy = "person")
+    @ToString.Exclude
+    @OneToMany(mappedBy = "person", fetch = FetchType.EAGER)
     private List<Address> addresses = new ArrayList<>();
 
     public Person() {
