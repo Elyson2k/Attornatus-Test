@@ -62,8 +62,8 @@ class AddressControllerTest {
     }
 
     @Test
-    void findAllPersons() {
-        var response = addressController.findAllPersons();
+    void findAllAddresses() {
+        var response = addressController.findAllAddress();
         assertNotNull(response);
         assertEquals(ID, response.getBody().get(0).getId());
         assertEquals(STREET, response.getBody().get(0).getStreet());

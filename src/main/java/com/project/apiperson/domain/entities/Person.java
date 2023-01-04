@@ -1,14 +1,18 @@
 package com.project.apiperson.domain.entities;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.ToString;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 @Entity
 @Table(name = "tb_person")
 public class Person {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -25,12 +29,12 @@ public class Person {
     public Person() {
     }
 
-    public Person(Integer id, String name, String email, String cpf, Date dateOfBirth) {
+    public Person(Integer id, String name, String email, String cpf, Date dateOfBirth) throws ParseException {
         this.id = id;
         this.name = name;
         this.email = email;
         this.cpf = cpf;
-        this.dateOfBirth = dateOfBirth;
+        this.dateOfBirth = dateOfBirth  ;
     }
 
     public Person(Person newPerson) {
@@ -69,7 +73,7 @@ public class Person {
     }
 
     public Date getDateOfBirth() {
-        return this.dateOfBirth;
+        return dateOfBirth;
     }
 
     public Person setDateOfBirth(Date dateOfBirth) {

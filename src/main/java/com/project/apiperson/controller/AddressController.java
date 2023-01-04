@@ -36,8 +36,8 @@ public class AddressController {
     }
 
     @GetMapping
-    public ResponseEntity<List<AddressAll>> findAllPersons(){
-        logger.info("m=findAllPersons stage=init");
+    public ResponseEntity<List<AddressAll>> findAllAddress(){
+        logger.info("m=findAllAddress stage=init");
         List<AddressAll> listAddress = addressService.findAllAddresses();
         logger.info("m=findAllPersons stage=finish listAddress={}", listAddress);
         return ResponseEntity.ok(listAddress);
