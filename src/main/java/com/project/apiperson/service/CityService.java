@@ -1,7 +1,7 @@
 package com.project.apiperson.service;
 
-import com.project.apiperson.entities.City;
-import com.project.apiperson.entities.dto.CityDto;
+import com.project.apiperson.domain.entities.City;
+import com.project.apiperson.domain.dto.CityDto;
 import com.project.apiperson.repository.CityRepository;
 import com.project.apiperson.service.exceptions.CustomExceptions;
 import com.project.apiperson.service.exceptions.ObjectNotFoundException;
@@ -34,7 +34,8 @@ public class CityService {
     public City insertCity(CityDto city){
         City newCity = new City();
         newCity.setName(city.getName());
-        return cityRepository.save(newCity);
+        cityRepository.save(newCity);
+        return newCity;
     }
 
 }
