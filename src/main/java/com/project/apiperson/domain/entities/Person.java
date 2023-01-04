@@ -1,6 +1,4 @@
-package com.project.apiperson.entities;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
+package com.project.apiperson.domain.entities;
 
 import javax.persistence.*;
 import java.util.*;

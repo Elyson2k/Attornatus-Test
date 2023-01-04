@@ -1,6 +1,6 @@
-package com.project.apiperson.entities.dto;
+package com.project.apiperson.domain.dto;
 
-import com.project.apiperson.entities.City;
+import com.project.apiperson.domain.entities.City;
 
 public class CityDto {
 

@@ -1,17 +1,12 @@
-package com.project.apiperson.entities.dto;
+package com.project.apiperson.domain.dto;
 
-import com.project.apiperson.entities.Address;
-import com.project.apiperson.entities.Person;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.br.CPF;
 
-import javax.persistence.Column;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 public class PersonPost {
 
@@ -44,6 +39,17 @@ public class PersonPost {
     public PersonPost() {
     }
 
+    public PersonPost(String name, String email, String cpf, Date dateOfBirth, String street, String zipCode, Integer number, Integer cityId) {
+        this.name = name;
+        this.email = email;
+        this.cpf = cpf;
+        this.dateOfBirth = dateOfBirth;
+        this.street = street;
+        this.zipCode = zipCode;
+        this.number = number;
+        this.cityId = cityId;
+    }
+
     public String getName() {
         return name;
     }
@@ -66,53 +72,29 @@ public class PersonPost {
         return cpf;
     }
 
-    public PersonPost setCpf(String cpf) {
-        this.cpf = cpf;
-        return this;
-    }
 
     public Date getDateOfBirth() {
         return dateOfBirth;
     }
 
-    public PersonPost setDateOfBirth(Date dateOfBirth) {
-        this.dateOfBirth = dateOfBirth;
-        return this;
-    }
 
     public String getStreet() {
         return street;
     }
 
-    public PersonPost setStreet(String street) {
-        this.street = street;
-        return this;
-    }
 
     public String getZipCode() {
         return zipCode;
     }
 
-    public PersonPost setZipCode(String zipCode) {
-        this.zipCode = zipCode;
-        return this;
-    }
 
     public Integer getNumber() {
         return number;
     }
 
-    public PersonPost setNumber(Integer number) {
-        this.number = number;
-        return this;
-    }
 
     public Integer getCityId() {
         return cityId;
     }
 
-    public PersonPost setCityId(Integer cityId) {
-        this.cityId = cityId;
-        return this;
-    }
 }

@@ -1,12 +1,7 @@
-package com.project.apiperson.entities.dto;
+package com.project.apiperson.domain.dto;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.project.apiperson.entities.Address;
-import com.project.apiperson.entities.City;
-import com.project.apiperson.entities.Person;
-
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import com.project.apiperson.domain.entities.Address;
+import com.project.apiperson.domain.entities.City;
 
 public class AddressDto {
 
@@ -36,45 +31,25 @@ public class AddressDto {
         return id;
     }
 
-    public AddressDto setId(Integer id) {
-        this.id = id;
-        return this;
-    }
 
     public String getStreet() {
         return street;
     }
 
-    public AddressDto setStreet(String street) {
-        this.street = street;
-        return this;
-    }
 
     public String getZipCode() {
         return zipCode;
     }
 
-    public AddressDto setZipCode(String zipCode) {
-        this.zipCode = zipCode;
-        return this;
-    }
 
     public Integer getNumber() {
         return number;
     }
 
-    public AddressDto setNumber(Integer number) {
-        this.number = number;
-        return this;
-    }
 
     public City getCity() {
         return city;
     }
 
-    public AddressDto setCity(City city) {
-        this.city = city;
-        return this;
-    }
 
 }

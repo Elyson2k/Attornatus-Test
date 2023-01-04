@@ -1,27 +1,27 @@
-package com.project.apiperson.entities.dto;
+package com.project.apiperson.domain.dto;
 
-import com.project.apiperson.entities.Address;
-import com.project.apiperson.entities.Person;
+import com.project.apiperson.domain.entities.Person;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 public class PersonAll {
 
     private Integer id;
     private String name;
     private String email;
+
+    private String cpf;
     private Date dateOfBirth;
 
     public PersonAll() {
 
     }
 
-    public PersonAll(Integer id, String name, String email, Date dateOfBirth) {
+    public PersonAll(Integer id, String name, String email, String cpf, Date dateOfBirth) {
         this.id = id;
         this.name = name;
         this.email = email;
+        this.cpf = cpf;
         this.dateOfBirth = dateOfBirth;
     }
 
@@ -29,6 +29,7 @@ public class PersonAll {
         this.id = person.getId();
         this.name = person.getName();
         this.email = person.getEmail();
+        this.cpf = person.getCpf();
         this.dateOfBirth = person.getDateOfBirth();
     }
 
@@ -59,12 +60,13 @@ public class PersonAll {
         return this;
     }
 
+    public String getCpf() {
+        return cpf;
+    }
+
+
     public Date getDateOfBirth() {
         return dateOfBirth;
     }
 
-    public PersonAll setDateOfBirth(Date dateOfBirth) {
-        this.dateOfBirth = dateOfBirth;
-        return this;
-    }
 }

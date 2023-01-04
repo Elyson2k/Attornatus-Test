@@ -1,4 +1,4 @@
-package com.project.apiperson.entities;
+package com.project.apiperson.domain.entities;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -40,53 +40,27 @@ public class Address {
         return id;
     }
 
-    public Address setId(Integer id) {
-        this.id = id;
-        return this;
-    }
 
     public String getStreet() {
         return street;
-    }
-
-    public Address setStreet(String street) {
-        this.street = street;
-        return this;
     }
 
     public Integer getNumber() {
         return number;
     }
 
-    public Address setNumber(Integer number) {
-        this.number = number;
-        return this;
-    }
 
     public String getZipCode() {
         return zipCode;
-    }
-
-    public Address setZipCode(String zipCode) {
-        this.zipCode = zipCode;
-        return this;
     }
 
     public Person getPerson() {
         return person;
     }
 
-    public Address setPerson(Person person) {
-        this.person = person;
-        return this;
-    }
 
     public City getCity() {
         return city;
     }
 
-    public Address setCity(City city) {
-        this.city = city;
-        return this;
-    }
 }

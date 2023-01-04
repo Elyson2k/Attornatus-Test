@@ -1,4 +1,4 @@
-package com.project.apiperson.entities;
+package com.project.apiperson.domain.entities;
 
 import javax.persistence.*;
 

@@ -1,8 +1,8 @@
-package com.project.apiperson.entities.dto;
+package com.project.apiperson.domain.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.project.apiperson.entities.Address;
-import com.project.apiperson.entities.Person;
+import com.project.apiperson.domain.entities.Address;
+import com.project.apiperson.domain.entities.Person;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.br.CPF;
 
@@ -31,6 +31,14 @@ public class PersonDto {
     private List<Address> addresses = new ArrayList<>();
 
     public PersonDto() {
+    }
+
+    public PersonDto(Integer id, String name, String email, String cpf, Date dateOfBirth) {
+        this.id = id;
+        this.name = name;
+        this.email = email;
+        this.cpf = cpf;
+        this.dateOfBirth = dateOfBirth;
     }
 
     public PersonDto(Person person) {
@@ -73,27 +81,15 @@ public class PersonDto {
         return dateOfBirth;
     }
 
-    public PersonDto setDateOfBirth(Date dateOfBirth) {
-        this.dateOfBirth = dateOfBirth;
-        return this;
-    }
 
 
     public List<Address> getAddresses() {
         return addresses;
     }
 
-    public PersonDto setAddresses(List<Address> addresses) {
-        this.addresses = addresses;
-        return this;
-    }
 
     public String getCpf() {
         return cpf;
     }
 
-    public PersonDto setCpf(String cpf) {
-        this.cpf = cpf;
-        return this;
-    }
 }

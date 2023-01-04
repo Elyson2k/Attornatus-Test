@@ -1,9 +1,9 @@
 package com.project.apiperson.controller;
 
-import com.project.apiperson.entities.Address;
-import com.project.apiperson.entities.dto.AddressAll;
-import com.project.apiperson.entities.dto.AddressDto;
-import com.project.apiperson.entities.dto.AddressPost;
+import com.project.apiperson.domain.entities.Address;
+import com.project.apiperson.domain.dto.AddressAll;
+import com.project.apiperson.domain.dto.AddressDto;
+import com.project.apiperson.domain.dto.AddressPost;
 import com.project.apiperson.service.AddressService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -11,7 +11,6 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
 import java.util.List;
-import java.util.UUID;
 
 @RestController
 @RequestMapping(value = "/api/v1/addresses")
@@ -31,12 +30,12 @@ public class AddressController {
 
     @GetMapping
     public ResponseEntity<List<AddressAll>> findAllPersons(){
-        List<AddressAll> listAddress = addressService.listAddress();
+        List<AddressAll> listAddress = addressService.findAllAddresses();
         return ResponseEntity.ok(listAddress);
     }
 
     @PostMapping
-    public ResponseEntity<AddressPost> insertAddressForPerson(@RequestBody AddressPost addressPost){
+    public ResponseEntity<Void> insertAddressForPerson(@RequestBody AddressPost addressPost){
         var id = addressService.insertAddressForPerson(addressPost).getId();
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(id).toUri();
         return ResponseEntity.created(uri).build();
