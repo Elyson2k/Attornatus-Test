@@ -8,12 +8,16 @@ import org.hibernate.validator.constraints.br.CPF;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
+import java.text.DecimalFormat;
+import java.text.Format;
+import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 public class PersonDto {
+
 
     @JsonIgnore
     private Integer id;
@@ -83,14 +87,17 @@ public class PersonDto {
     }
 
 
-
     public List<Address> getAddresses() {
         return addresses;
     }
 
 
     public String getCpf() {
-        return cpf;
+        return cpfMask(cpf);
+    }
+
+    public String cpfMask(String cpf) {
+        return String.format("%s.%s.%s-%s", cpf.substring(0, 3), cpf.substring(3, 6), cpf.substring(6, 9), cpf.substring(9));
     }
 
     @Override

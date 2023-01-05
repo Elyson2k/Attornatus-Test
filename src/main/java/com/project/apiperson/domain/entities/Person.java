@@ -20,6 +20,7 @@ public class Person {
     private String email;
     @Column(unique = true)
     private String cpf;
+    @Column(name = "date_of_birth", nullable = false)
     private Date dateOfBirth;
 
     @ToString.Exclude
