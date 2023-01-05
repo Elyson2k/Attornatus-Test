@@ -1,5 +1,6 @@
 package com.project.apiperson.controller.exceptions;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,7 +11,7 @@ public class ValidationError extends StandardError{
 	
 	private List<FieldMessage> erros = new ArrayList<>();
 
-	public ValidationError(Integer status, String msg, Long timeStamp) {
+	public ValidationError(Integer status, String msg, LocalDateTime timeStamp) {
 		super(status, msg, timeStamp);
 	}
 	
