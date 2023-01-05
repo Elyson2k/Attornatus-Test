@@ -7,14 +7,14 @@ public class AddressDto {
 
     private Integer id;
     private String street;
-    private String zipCode;
+    private String zipcode;
     private Integer number;
     private City city;
 
-    public AddressDto(Integer id, String street, String zipCode, Integer number, City city) {
+    public AddressDto(Integer id, String street, String zipcode, Integer number, City city) {
         this.id = id;
         this.street = street;
-        this.zipCode = zipCode;
+        this.zipcode = zipcode;
         this.number = number;
         this.city = city;
     }
@@ -22,7 +22,7 @@ public class AddressDto {
     public AddressDto(Address address) {
         this.id = address.getId();
         this.street = address.getStreet();
-        this.zipCode = address.getZipCode();
+        this.zipcode = address.getZipcode();
         this.number = address.getNumber();
         this.city = address.getCity();
     }
@@ -37,8 +37,8 @@ public class AddressDto {
     }
 
 
-    public String getZipCode() {
-        return zipCode;
+    public String getZipcode() {
+        return zipcode;
     }
 
 
@@ -56,7 +56,7 @@ public class AddressDto {
         return "AddressDto{" +
                 "id=" + id +
                 ", street='" + street + '\'' +
-                ", zipCode='" + zipCode + '\'' +
+                ", zipCode='" + zipcode + '\'' +
                 ", number=" + number +
                 ", city=" + city.getName() +
                 '}';

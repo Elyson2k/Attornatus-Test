@@ -14,7 +14,7 @@ public class Address {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String street;
-    private String zipCode;
+    private String zipcode;
     private Integer number;
 
     @ToString.Exclude
@@ -30,10 +30,10 @@ public class Address {
     public Address() {
     }
 
-    public Address(Integer id, String street, String zipCode, Integer number, Person person, City city) {
+    public Address(Integer id, String street, String zipcode, Integer number, Person person, City city) {
         this.id = id;
         this.street = street;
-        this.zipCode = zipCode;
+        this.zipcode = zipcode;
         this.number = number;
         this.person = person;
         this.city = city;
@@ -43,7 +43,6 @@ public class Address {
         return id;
     }
 
-
     public String getStreet() {
         return street;
     }
@@ -52,9 +51,8 @@ public class Address {
         return number;
     }
 
-
-    public String getZipCode() {
-        return zipCode;
+    public String getZipcode() {
+        return maskZipCode(zipcode);
     }
 
     public Person getPerson() {
@@ -65,15 +63,12 @@ public class Address {
         return city;
     }
 
+    private String maskZipCode(String zipcode) {
+        return String.format("%05d-%02d", Long.parseLong(zipcode.substring(0, 5)), Long.parseLong(zipcode.substring(5)));
+    }
+
     @Override
     public String toString() {
-        return "Address{" +
-                "id=" + id +
-                ", street='" + street + '\'' +
-                ", zipCode='" + zipCode + '\'' +
-                ", number=" + number +
-                ", person=" + person.getName() +
-                ", city=" + city +
-                '}';
+        return "Address{" + "id=" + id + ", street='" + street + '\'' + ", zipCode='" + zipcode + '\'' + ", number=" + number + ", person=" + person.getName() + ", city=" + city + '}';
     }
 }

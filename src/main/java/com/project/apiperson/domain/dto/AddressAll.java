@@ -19,7 +19,7 @@ public class AddressAll {
     public AddressAll(Address address) {
         this.id = address.getId();
         this.street = address.getStreet();
-        this.zipCode = address.getZipCode();
+        this.zipCode = address.getZipcode();
         this.number = address.getNumber();
     }
 
