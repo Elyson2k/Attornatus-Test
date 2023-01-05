@@ -32,7 +32,7 @@ public class PersonController {
         logger.info("m=findPerson stage=init id={}", id);
         Person person = personService.findPersonByID(id);
         var newPerson = new PersonDto(person);
-        logger.info("m=findProducts stage=finish newPerson={}", newPerson);
+        logger.info("m=findPerson stage=finish newPerson={}", newPerson);
         return ResponseEntity.ok(newPerson);
     }
 

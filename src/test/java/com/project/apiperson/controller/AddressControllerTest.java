@@ -15,6 +15,7 @@ import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
+import java.text.ParseException;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -23,14 +24,10 @@ import static org.mockito.Mockito.when;
 class AddressControllerTest {
 
     public static final int ID = 1;
-    public static final String NAME_PERSON = "Elyson";
     public static final String STREET = "Rua";
-    public static final String CITY = "City";
-    public static final String EMAIL = "ElysonV@Outlook.com";
-    public static final String CPF = "00000000000";
     public static final String ZIP_CODE = "ZipCode";
-    public static final String DATE = "25-02-2003";
     public static final int NUMBER = 100;
+    public static final Character PRIOTIRY_ADDRESS = 'N';
 
     @InjectMocks
     private AddressController addressController;
@@ -41,10 +38,10 @@ class AddressControllerTest {
     private AddressDto addressDto;
     private Address address;
     @BeforeEach
-    void setUp() {
+    void setUp() throws ParseException {
         MockitoAnnotations.openMocks(this);
         startUser();
-        when(addressService.findAddressByID(ID)).thenReturn(address);
+        when(addressService.findAddressById(ID)).thenReturn(address);
         when(addressService.findAllAddresses()).thenReturn(List.of(addressAll));
         when(addressService.insertAddressForPerson(addressPost)).thenReturn(address);
         MockHttpServletRequest request = new MockHttpServletRequest();
@@ -72,16 +69,16 @@ class AddressControllerTest {
     }
 
     @Test
-    void insertAddressForPerson() {
+    void insertAddressForPerson() throws ParseException {
         var response = addressController.insertAddressForPerson(addressPost);
         assertNotNull(response);
         assertEquals(HttpStatus.CREATED, response.getStatusCode());
     }
 
     private void startUser(){
-        addressAll = new AddressAll(ID, STREET, ZIP_CODE, NUMBER);
-        addressPost = new AddressPost(ID, STREET, ZIP_CODE, NUMBER, NUMBER, NUMBER);
-        addressDto = new AddressDto(ID, STREET, ZIP_CODE, NUMBER, null);
-        address = new Address(ID, STREET, ZIP_CODE, NUMBER, null, null);
+        addressAll = new AddressAll(ID, STREET, ZIP_CODE, NUMBER, PRIOTIRY_ADDRESS);
+        addressPost = new AddressPost(ID, STREET, ZIP_CODE, NUMBER,PRIOTIRY_ADDRESS, NUMBER, NUMBER);
+        addressDto = new AddressDto(ID, STREET, ZIP_CODE, NUMBER, PRIOTIRY_ADDRESS, null);
+        address = new Address(ID, STREET, ZIP_CODE, NUMBER, PRIOTIRY_ADDRESS, null, null);
     }
 }

@@ -112,7 +112,7 @@ public class PersonDto {
                 ", email='" + email + '\'' +
                 ", cpf='" + cpf + '\'' +
                 ", dateOfBirth=" + dateOfBirth +
-                ", addresses=" + addresses.toString() +
+                ", addresses=" + addresses +
                 '}';
     }
 }

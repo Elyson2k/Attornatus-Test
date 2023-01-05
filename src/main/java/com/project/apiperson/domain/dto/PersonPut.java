@@ -10,11 +10,15 @@ public class PersonPut {
     private Integer id;
     private String name;
     private String email;
+    private Integer addressId;
+    private Character priorityAddress;
 
-    public PersonPut(Integer id, String name, String email) {
+    public PersonPut(Integer id, String name, String email, Integer addressId, Character priorityAddress) {
         this.id = id;
         this.name = name;
         this.email = email;
+        this.addressId = addressId;
+        this.priorityAddress = priorityAddress;
     }
 
     public PersonPut(Person person){
@@ -36,10 +40,10 @@ public class PersonPut {
         return email;
     }
 
-    public PersonPut setEmail(String email) {
-        this.email = email;
-        return this;
+    public Character getPriorityAddress() {
+        return priorityAddress;
     }
+
 
     @JsonIgnore
     public Integer getId() {
@@ -51,12 +55,22 @@ public class PersonPut {
         return this;
     }
 
+    public Integer getAddressId() {
+        return addressId;
+    }
+
+    public PersonPut setAddressId(Integer addressId) {
+        this.addressId = addressId;
+        return this;
+    }
+
     @Override
     public String toString() {
         return "PersonPut{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", email='" + email + '\'' +
+                ", priorityAddress" + priorityAddress +
                 '}';
     }
 }

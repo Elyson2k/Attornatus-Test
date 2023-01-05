@@ -31,15 +31,12 @@ class AddressServiceTest {
     public static final String ZIP_CODE = "ZipCode";
     public static final String DATE = "25-02-2003";
     public static final int NUMBER = 100;
+    public static final Character PRIOTIRY_ADDRESS = 'N';
 
     @InjectMocks
     private AddressService addressService;
     @Mock
     private AddressRepository addressRepository;
-    @Mock
-    private PersonService personService;
-    @Mock
-    private CityService cityService;
 
 
     Address address;
@@ -59,7 +56,7 @@ class AddressServiceTest {
 
     @Test
     void findAddressByID() {
-        var response = addressService.findAddressByID(ID);
+        var response = addressService.findAddressById(ID);
         assertNotNull(response);
         assertEquals(STREET, response.getStreet());
         assertEquals(ZIP_CODE, response.getZipcode());
@@ -76,7 +73,7 @@ class AddressServiceTest {
     }
 
     @Test
-    void insertAddressForPerson() {
+    void insertAddressForPerson() throws ParseException {
         var response = addressService.insertAddressForPerson(addressPost);
         assertNotNull(response);
         assertEquals(STREET, response.getStreet());
@@ -88,9 +85,9 @@ class AddressServiceTest {
         SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
         City city = new City(ID, CITY);
         person = new Person(ID, NAME_PERSON, EMAIL, CPF , sdf.parse(DATE));
-        address = new Address(ID, STREET, ZIP_CODE, NUMBER, person, city);
+        address = new Address(ID, STREET, ZIP_CODE, NUMBER, PRIOTIRY_ADDRESS, person, city);
         addressOptional = Optional.of(address);
-        addressAll = new AddressAll(ID, STREET, ZIP_CODE, NUMBER);
-        addressPost = new AddressPost(ID, STREET, ZIP_CODE, NUMBER, NUMBER, NUMBER);
+        addressAll = new AddressAll(ID, STREET, ZIP_CODE, NUMBER, PRIOTIRY_ADDRESS);
+        addressPost = new AddressPost(ID, STREET, ZIP_CODE, NUMBER,PRIOTIRY_ADDRESS ,NUMBER, NUMBER);
     }
 }

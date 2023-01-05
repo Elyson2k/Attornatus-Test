@@ -4,16 +4,18 @@ public class AddressPost {
 
     private Integer id;
     private String street;
-    private String zipCode;
+    private String zipcode;
     private Integer number;
+    private Character priotiryAddress;
     private Integer personId;
     private Integer cityId;
 
-    public AddressPost(Integer id, String street, String zipCode, Integer number, Integer personId, Integer cityId) {
+    public AddressPost(Integer id, String street, String zipcode, Integer number, Character priotiryAddress, Integer personId, Integer cityId) {
         this.id = id;
         this.street = street;
-        this.zipCode = zipCode;
+        this.zipcode = zipcode;
         this.number = number;
+        this.priotiryAddress = priotiryAddress;
         this.personId = personId;
         this.cityId = cityId;
     }
@@ -32,8 +34,8 @@ public class AddressPost {
     }
 
 
-    public String getZipCode() {
-        return zipCode;
+    public String getZipcode() {
+        return zipcode;
     }
 
 
@@ -51,12 +53,17 @@ public class AddressPost {
         return cityId;
     }
 
+    public Character getPriotiryAddress() {
+        return priotiryAddress;
+    }
+
+
     @Override
     public String toString() {
         return "AddressPost{" +
                 "id=" + id +
                 ", street='" + street + '\'' +
-                ", zipCode='" + zipCode + '\'' +
+                ", zipcode='" + zipcode + '\'' +
                 ", number=" + number +
                 ", personId=" + personId +
                 ", cityId=" + cityId +

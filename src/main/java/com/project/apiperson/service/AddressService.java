@@ -14,6 +14,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import java.text.ParseException;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -33,10 +34,10 @@ public class AddressService {
 
     }
 
-    public Address findAddressByID(Integer id){
+    public Address findAddressById(Integer id){
         Optional<Address> address = addressRepository.findById(id);
         if(!(address.isPresent())){
-            logger.error("m=findAddressByID stage=error id={}", id);
+            logger.error("m=findAddressById stage=error id={}", id);
             throw new ObjectNotFoundException("Error: Entity not found.");
         } else return address.get();
     }
@@ -49,20 +50,34 @@ public class AddressService {
         } else return listAddress;
     }
 
-    public Address insertAddressForPerson(AddressPost addressPost){
+    public Address insertAddressForPerson(AddressPost addressPost) throws ParseException {
         Address address = fromDto(addressPost);
         addressRepository.save(address);
         return address;
     }
 
-    private Address fromDto(AddressPost addressPost){
-        Person person = personService.findPersonByID(addressPost.getPersonId());
+    private Address fromDto(AddressPost addressPost) throws ParseException {
+        Address address = new Address(null, addressPost.getStreet(), addressPost.getZipcode(), addressPost.getNumber(), addressPost.getPriotiryAddress(), null, null);
+        Person person = new Person(addressPost.getPersonId(), null, null, null, null);
         City city = cityService.findCityByID(addressPost.getCityId());
-        Address address = new Address(null, addressPost.getStreet(), addressPost.getZipCode(), addressPost.getNumber(), person, city);
+        address.setCity(city);
+        address.setPerson(person);
+        findPriorityAddress(person, addressPost);
         return address;
     }
+
     private List<AddressAll> findAllAddress() {
         return addressRepository.findAll().stream().map(obj -> new AddressAll(obj)).collect(Collectors.toList());
+    }
+
+    private void findPriorityAddress(Person person, AddressPost addressPost) {
+        for (Address x : person.getAddresses()) {
+            if (x.getPriorityAddress() == 'Y' && addressPost.getPriotiryAddress() == 'Y') {
+                logger.error("m=insertAddressForPerson stage=error charInvalid={}", addressPost.getPriotiryAddress());
+                throw new CustomExceptions("This person already has an address as a priority, please change the person's reference or priority status");
+            }
+            return;
+        }
     }
 
 }

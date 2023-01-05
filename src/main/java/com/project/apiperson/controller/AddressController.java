@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
+import java.text.ParseException;
 import java.util.List;
 
 @RestController
@@ -29,7 +30,7 @@ public class AddressController {
     @GetMapping(value = "/{id}")
     public ResponseEntity<AddressDto> findAddress(@PathVariable Integer id){
         logger.info("m=findAddress stage=init id={}", id);
-        Address address = addressService.findAddressByID(id);
+        Address address = addressService.findAddressById(id);
         var newAddress = new AddressDto(address);
         logger.info("m=findAddress stage=finish newAddress={}", newAddress);
         return ResponseEntity.ok(newAddress);
@@ -44,7 +45,7 @@ public class AddressController {
     }
 
     @PostMapping
-    public ResponseEntity<Void> insertAddressForPerson(@RequestBody AddressPost addressPost){
+    public ResponseEntity<Void> insertAddressForPerson(@RequestBody AddressPost addressPost) throws ParseException {
         logger.info("m=insertAddressForPerson stage=init, addressPost={}", addressPost);
         var id = addressService.insertAddressForPerson(addressPost).getId();
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(id).toUri();

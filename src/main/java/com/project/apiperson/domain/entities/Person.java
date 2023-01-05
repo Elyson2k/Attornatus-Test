@@ -40,14 +40,6 @@ public class Person {
         this.dateOfBirth = dateOfBirth  ;
     }
 
-    public Person(Person newPerson) {
-        Person person = newPerson.setId(null);
-        person.setName(newPerson.getName());
-        person.setEmail(newPerson.getEmail());
-        person.setAddresses(newPerson.getAddresses());
-        person.setDateOfBirth(newPerson.getDateOfBirth());
-    }
-
     public Integer getId() {
         return id;
     }
@@ -102,4 +94,15 @@ public class Person {
         return this;
     }
 
+    @Override
+    public String toString() {
+        return "Person{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", email='" + email + '\'' +
+                ", cpf='" + cpf + '\'' +
+                ", dateOfBirth=" + dateOfBirth +
+                ", addresses=" + addresses +
+                '}';
+    }
 }

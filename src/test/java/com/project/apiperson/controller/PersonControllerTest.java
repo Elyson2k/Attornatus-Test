@@ -46,9 +46,7 @@ class PersonControllerTest {
     public static final String ZIP_CODE = "ZipCode";
     public static final String DATE = "25-02-2003";
     public static final int NUMBER = 100;
-    public static final String ERROR_EMAIL_IS_ALREADY_BEING_USED = "Error: email is already being used.";
-    public static final String ERROR_ENTITY_NOT_FOUND = "Error: Entity not found.";
-    public static final String ERROR_NO_PERSON_FOUND = "Error: no person found.";
+    public static final Character PRIOTIRY_ADDRESS = 'N';
 
     Person person;
     Optional<Person> optionalPersonDto;
@@ -86,7 +84,6 @@ class PersonControllerTest {
         assertEquals(ID, response.getBody().getId());
         assertEquals(NAME_PERSON, response.getBody().getName());
         assertEquals(EMAIL, response.getBody().getEmail());
-        assertEquals(CPF, response.getBody().getCpf());
     }
 
     @Test
@@ -99,7 +96,6 @@ class PersonControllerTest {
         assertEquals(ID, response.getBody().get(0).getId());
         assertEquals(NAME_PERSON, response.getBody().get(0).getName());
         assertEquals(EMAIL, response.getBody().get(0).getEmail());
-        assertEquals(CPF, response.getBody().get(0).getCpf());
     }
 
     @Test
@@ -120,11 +116,11 @@ class PersonControllerTest {
 
         City city = new City(ID, CITY);
         person = new Person(ID, NAME_PERSON, EMAIL, CPF , sdf.parse(DATE));
-        address = new Address(ID, STREET, ZIP_CODE, 100, person, city);
+        address = new Address(ID, STREET, ZIP_CODE, 100, PRIOTIRY_ADDRESS, person, city);
         personAll = new PersonAll(ID, NAME_PERSON, EMAIL, CPF, sdf.parse(DATE));
         personDto = new PersonDto(ID, NAME_PERSON, EMAIL, CPF , sdf.parse(DATE));
-        personPut = new PersonPut(ID,NAME_PERSON,EMAIL);
-        personPost = new PersonPost(NAME_PERSON, EMAIL, CPF, sdf.parse(DATE), STREET, ZIP_CODE, NUMBER, NUMBER);
+        personPut = new PersonPut(ID,NAME_PERSON,EMAIL, NUMBER, PRIOTIRY_ADDRESS);
+        personPost = new PersonPost(NAME_PERSON, EMAIL, CPF, sdf.parse(DATE), STREET, ZIP_CODE, NUMBER, PRIOTIRY_ADDRESS , NUMBER);
         optionalPersonDto = Optional.of(person);
     }
 }

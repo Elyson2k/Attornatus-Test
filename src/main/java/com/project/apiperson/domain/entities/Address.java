@@ -14,8 +14,13 @@ public class Address {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String street;
+
+    @Column(name = "zipcode")
     private String zipcode;
     private Integer number;
+
+    @Column(name = "priorityaddress")
+    private Character priorityAddress;
 
     @ToString.Exclude
     @JsonIgnore
@@ -30,11 +35,12 @@ public class Address {
     public Address() {
     }
 
-    public Address(Integer id, String street, String zipcode, Integer number, Person person, City city) {
+    public Address(Integer id, String street, String zipcode, Integer number , Character priorityAddress, Person person, City city) {
         this.id = id;
         this.street = street;
         this.zipcode = zipcode;
         this.number = number;
+        this.priorityAddress = priorityAddress;
         this.person = person;
         this.city = city;
     }
@@ -52,9 +58,14 @@ public class Address {
     }
 
     public String getZipcode() {
-        return maskZipCode(zipcode);
+        return zipcode;
     }
 
+    public Character getPriorityAddress() {
+        return priorityAddress;
+    }
+
+    @JsonIgnore
     public Person getPerson() {
         return person;
     }
@@ -63,12 +74,35 @@ public class Address {
         return city;
     }
 
+    public Address setPerson(Person person) {
+        this.person = person;
+        return this;
+    }
+
+    public Address setCity(City city) {
+        this.city = city;
+        return this;
+    }
+
+    public Address setPriorityAddress(Character priorityAddress) {
+        this.priorityAddress = priorityAddress;
+        return this;
+    }
+
     private String maskZipCode(String zipcode) {
         return String.format("%05d-%02d", Long.parseLong(zipcode.substring(0, 5)), Long.parseLong(zipcode.substring(5)));
     }
 
     @Override
     public String toString() {
-        return "Address{" + "id=" + id + ", street='" + street + '\'' + ", zipCode='" + zipcode + '\'' + ", number=" + number + ", person=" + person.getName() + ", city=" + city + '}';
+        return "Address{" +
+                "id=" + id +
+                ", street='" + street + '\'' +
+                ", zipcode='" + zipcode + '\'' +
+                ", number=" + number +
+                ", priorityAddress=" + priorityAddress +
+                ", person=" + person.getName() +
+                ", city=" + city +
+                '}';
     }
 }

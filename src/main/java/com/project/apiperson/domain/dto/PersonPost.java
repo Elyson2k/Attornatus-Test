@@ -36,13 +36,14 @@ public class PersonPost {
 
     private Integer number;
 
+    private Character priorityAddress = 'N';
 
     private Integer cityId;
 
     public PersonPost() {
     }
 
-    public PersonPost(String name, String email, String cpf, Date dateOfBirth, String street, String zipCode, Integer number, Integer cityId) {
+    public PersonPost(String name, String email, String cpf, Date dateOfBirth, String street, String zipCode, Integer number, Character priorityAddress, Integer cityId) {
         this.name = name;
         this.email = email;
         this.cpf = cpf;
@@ -50,6 +51,7 @@ public class PersonPost {
         this.street = street;
         this.zipCode = zipCode;
         this.number = number;
+        this.priorityAddress = priorityAddress;
         this.cityId = cityId;
     }
 
@@ -100,6 +102,15 @@ public class PersonPost {
         return cityId;
     }
 
+    public Character getPriorityAddress() {
+        return priorityAddress;
+    }
+
+    public PersonPost setPriorityAddress(Character priorityAddress) {
+        this.priorityAddress = priorityAddress;
+        return this;
+    }
+
     @Override
     public String toString() {
         return "PersonPost{" +
@@ -110,6 +121,7 @@ public class PersonPost {
                 ", street='" + street + '\'' +
                 ", zipCode='" + zipCode + '\'' +
                 ", number=" + number +
+                ", priorityAddress= " + priorityAddress +
                 ", cityId=" + cityId +
                 '}';
     }
