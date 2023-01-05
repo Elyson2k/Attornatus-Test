@@ -6,6 +6,8 @@ import com.project.apiperson.domain.entities.Person;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.br.CPF;
 
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import java.text.DecimalFormat;
@@ -32,6 +34,8 @@ public class PersonDto {
     @NotEmpty(message = "This field cannot be null")
     @CPF(message = "CPF is invalid format")
     private String cpf;
+
+    @Temporal(TemporalType.DATE)
     private Date dateOfBirth;
     private List<Address> addresses = new ArrayList<>();
 

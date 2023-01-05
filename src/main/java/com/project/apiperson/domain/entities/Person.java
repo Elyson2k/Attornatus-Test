@@ -20,6 +20,8 @@ public class Person {
     private String email;
     @Column(unique = true)
     private String cpf;
+
+    @Temporal(TemporalType.DATE)
     @Column(name = "date_of_birth", nullable = false)
     private Date dateOfBirth;
 

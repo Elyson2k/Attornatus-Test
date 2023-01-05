@@ -3,6 +3,8 @@ package com.project.apiperson.domain.dto;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.br.CPF;
 
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -23,6 +25,7 @@ public class PersonPost {
     private String cpf;
 
     @NotNull
+    @Temporal(TemporalType.DATE)
     private Date dateOfBirth;
 
     @NotEmpty(message = "This field cannot be null")

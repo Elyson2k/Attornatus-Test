@@ -2,8 +2,8 @@ package com.project.apiperson.domain.dto;
 
 import com.project.apiperson.domain.entities.Person;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import java.util.Date;
 
 public class PersonAll {
@@ -12,6 +12,7 @@ public class PersonAll {
     private String email;
 
     private String cpf;
+    @Temporal(TemporalType.DATE)
     private Date dateOfBirth;
 
     public PersonAll() {
