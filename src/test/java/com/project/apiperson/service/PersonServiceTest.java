@@ -17,7 +17,6 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.springframework.boot.test.context.SpringBootTest;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -99,7 +98,7 @@ class PersonServiceTest {
         assertEquals(EMAIL, response.getEmail());
         assertEquals(CPF, response.getCpf());
         assertEquals(STREET, response.getAddresses().get(0).getStreet());
-        assertEquals(ZIP_CODE, response.getAddresses().get(0).getZipCode());
+        assertEquals(ZIP_CODE, response.getAddresses().get(0).getZipcode());
         assertEquals(NUMBER ,  response.getAddresses().get(0).getNumber());
     }
 

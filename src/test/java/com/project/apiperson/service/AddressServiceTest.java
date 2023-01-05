@@ -6,7 +6,6 @@ import com.project.apiperson.domain.entities.Address;
 import com.project.apiperson.domain.entities.City;
 import com.project.apiperson.domain.entities.Person;
 import com.project.apiperson.repository.AddressRepository;
-import com.project.apiperson.service.exceptions.CustomExceptions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -15,7 +14,6 @@ import org.mockito.MockitoAnnotations;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -64,7 +62,7 @@ class AddressServiceTest {
         var response = addressService.findAddressByID(ID);
         assertNotNull(response);
         assertEquals(STREET, response.getStreet());
-        assertEquals(ZIP_CODE, response.getZipCode());
+        assertEquals(ZIP_CODE, response.getZipcode());
         assertEquals(NUMBER, response.getNumber());
     }
 
@@ -82,7 +80,7 @@ class AddressServiceTest {
         var response = addressService.insertAddressForPerson(addressPost);
         assertNotNull(response);
         assertEquals(STREET, response.getStreet());
-        assertEquals(ZIP_CODE, response.getZipCode());
+        assertEquals(ZIP_CODE, response.getZipcode());
         assertEquals(NUMBER, response.getNumber());
     }
 

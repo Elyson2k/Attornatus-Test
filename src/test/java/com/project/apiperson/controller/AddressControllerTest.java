@@ -57,7 +57,7 @@ class AddressControllerTest {
         assertNotNull(response);
         assertEquals(ID, response.getBody().getId());
         assertEquals(STREET, response.getBody().getStreet());
-        assertEquals(ZIP_CODE, response.getBody().getZipCode());
+        assertEquals(ZIP_CODE, response.getBody().getZipcode());
         assertEquals(NUMBER, response.getBody().getNumber());
     }
 
