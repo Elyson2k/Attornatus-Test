@@ -15,6 +15,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 
 import javax.servlet.http.HttpServletRequest;
 import java.sql.SQLIntegrityConstraintViolationException;
+import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
 
@@ -73,7 +74,7 @@ class ResourceExceptionHandlerTest {
         HttpServletRequest request = mock(HttpServletRequest.class);
         var response = resourceExceptionHandler.methodValidation(exception, request).getStatusCode();
 
-        ValidationError error = new ValidationError(HttpStatus.BAD_REQUEST.value(), "Erros de validação", System.currentTimeMillis());
+        ValidationError error = new ValidationError(HttpStatus.BAD_REQUEST.value(), "Validation erros", LocalDateTime.now());
         error.addError("field1", "message1");
         error.addError("field2", "message2");
         var expected = ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error).getStatusCode();
