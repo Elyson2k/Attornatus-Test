@@ -16,6 +16,7 @@ CREATE TABLE tb_address(
   street varchar(255),
   zipcode varchar(255),
   number INT,
+  priorityaddress CHAR,
   person_id INT,
   city_id INT,
   FOREIGN KEY (person_id) REFERENCES tb_person(id)

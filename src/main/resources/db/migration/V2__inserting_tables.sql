@@ -15,13 +15,13 @@ INSERT INTO tb_person (name, email, cpf, date_of_birth) VALUES ('Luiza', 'luiza@
 INSERT INTO tb_person (name, email, cpf, date_of_birth) VALUES ('Rafael', 'rafael@email.com', '01234567890', '2005-05-30 00:00:00.000000');
 INSERT INTO tb_person (name, email, cpf, date_of_birth) VALUES ('Sara', 'sara@email.com', '98765432109', '2010-07-14 00:00:00.000000');
 
-INSERT INTO tb_address (street, zipcode, number, person_id, city_id) VALUES ('Rua das Flores', '12345678', 123, 1, 1);
-INSERT INTO tb_address (street, zipcode, number, person_id, city_id) VALUES ('Rua dos Jardins', '98765432', 456, 2, 2);
-INSERT INTO tb_address (street, zipcode, number, person_id, city_id) VALUES ('Avenida dos Pássaros', '56789012', 789, 3, 3);
-INSERT INTO tb_address (street, zipcode, number, person_id, city_id) VALUES ('Praça das Árvores', '01234567', 321, 4, 4);
-INSERT INTO tb_address (street, zipcode, number, person_id, city_id) VALUES ('Estrada das Montanhas', '76543210', 654, 5, 5);
-INSERT INTO tb_address (street, zipcode, number, person_id, city_id) VALUES ('Rua da Lua', '23456789', 987, 6, 1);
-INSERT INTO tb_address (street, zipcode, number, person_id, city_id) VALUES ('Rua do Sol', '45678901', 159, 7, 2);
-INSERT INTO tb_address (street, zipcode, number, person_id, city_id) VALUES ('Avenida dos Anjos', '78901234', 357, 8, 3);
-INSERT INTO tb_address (street, zipcode, number, person_id, city_id) VALUES ('Praça da Estrela', '01234567', 741, 9, 4);
-INSERT INTO tb_address (street, zipcode, number, person_id, city_id) VALUES ('Estrada das Nuvens', '12345678', 963, 10, 5);
+INSERT INTO tb_address (street, zipcode, number, priorityaddress, person_id, city_id) VALUES ('Rua das Flores', '12345678', 123, 'Y', 1, 1);
+INSERT INTO tb_address (street, zipcode, number, priorityaddress, person_id, city_id) VALUES ('Rua dos Jardins', '98765432', 456, 'N', 2, 2);
+INSERT INTO tb_address (street, zipcode, number, priorityaddress, person_id, city_id) VALUES ('Avenida dos Pássaros', '56789012', 789, 'N',3, 3);
+INSERT INTO tb_address (street, zipcode, number, priorityaddress, person_id, city_id) VALUES ('Praça das Árvores', '01234567', 321, 'N', 4, 4);
+INSERT INTO tb_address (street, zipcode, number, priorityaddress, person_id, city_id) VALUES ('Estrada das Montanhas', '76543210', 654, 'Y',  5, 5);
+INSERT INTO tb_address (street, zipcode, number, priorityaddress, person_id, city_id) VALUES ('Rua da Lua', '23456789', 987, 'N', 6, 1);
+INSERT INTO tb_address (street, zipcode, number, priorityaddress, person_id, city_id) VALUES ('Rua do Sol', '45678901', 159,'N', 7, 2);
+INSERT INTO tb_address (street, zipcode, number, priorityaddress, person_id, city_id) VALUES ('Avenida dos Anjos', '78901234', 357,'N', 8, 3);
+INSERT INTO tb_address (street, zipcode, number, priorityaddress, person_id, city_id) VALUES ('Praça da Estrela', '01234567', 741,'N', 9, 4);
+INSERT INTO tb_address (street, zipcode, number, priorityaddress, person_id, city_id) VALUES ('Estrada das Nuvens', '12345678', 963,'N', 10, 5);
