@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<included>
+    <property name="CONSOLE_WITHOUT_COLOR_LOG_PATTERN" value="[%date{yyyy-MM-dd HH:mm:ss.SSS}] [${PROJECT_NAME}] [${HOSTNAME}] [%X{requestId}] [%-5level] %logger{0} : %X{id} %replace(%msg){'\r?\n', ' crlf '} %replace(%ex{full}){'\r?\n', ' crlf '} %nopex%n"/>
+    <property name="CONSOLE_LOG_PATTERN" value="%clr([%date{yyyy-MM-dd HH:mm:ss.SSS}]){faint} %clr([%X{requestId}]){faint} %clr([%-5level]) %clr(%logger{0}){cyan} : %X{id} %msg %ex %n"/>
+
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>${CONSOLE_LOG_PATTERN}</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="CONSOLE_WITHOUT_COLOR" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>${CONSOLE_WITHOUT_COLOR_LOG_PATTERN}</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="ASYNC" class="ch.qos.logback.classic.AsyncAppender">
+        <neverBlock>true</neverBlock>
+        <appender-ref ref="CONSOLE" />
+    </appender>
+
+    <appender name="ASYNC_WITHOUT_COLOR" class="ch.qos.logback.classic.AsyncAppender">
+        <neverBlock>true</neverBlock>
+        <appender-ref ref="CONSOLE_WITHOUT_COLOR" />
+    </appender>
+
+    <springProfile name="local">
+        <root level="INFO">
+            <appender-ref ref="ASYNC"/>
+        </root>
+    </springProfile>
+
+    <springProfile name="default,dev,hml,prod">
+        <root level="INFO">
+            <appender-ref ref="ASYNC_WITHOUT_COLOR"/>
+        </root>
+    </springProfile>
+</included>
