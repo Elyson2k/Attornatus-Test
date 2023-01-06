@@ -14,7 +14,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
-import javax.mail.MessagingException;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -25,11 +24,13 @@ public class PersonService {
     private final Logger logger = LoggerFactory.getLogger(AddressController.class);
     private final PersonRepository personRepository;
 
+    private final CityService cityService;
     private final AddressRepository addressRepository;
 
 
-    public PersonService(PersonRepository personRepository, AddressRepository addressRepository) {
+    public PersonService(PersonRepository personRepository, CityService cityService, AddressRepository addressRepository) {
         this.personRepository = personRepository;
+        this.cityService = cityService;
         this.addressRepository = addressRepository;
     }
 
@@ -83,7 +84,7 @@ public class PersonService {
 
     public Person fromDto(PersonPost person){
         Person personAtt = new Person();
-        City city = new City(person.getCityId(), null);
+        City city = cityService.findCityByID(person.getCityId());
         Address address = new Address(null, person.getStreet(), person.getZipCode(), person.getNumber(), person.getPriorityAddress(), personAtt, city);
         personAtt.setId(null)
                 .setName(person.getName())

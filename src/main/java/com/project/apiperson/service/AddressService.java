@@ -1,6 +1,7 @@
 package com.project.apiperson.service;
 
 import com.project.apiperson.controller.AddressController;
+import com.project.apiperson.domain.dto.PersonPut;
 import com.project.apiperson.domain.entities.Address;
 import com.project.apiperson.domain.entities.City;
 import com.project.apiperson.domain.entities.Person;
@@ -58,11 +59,12 @@ public class AddressService {
 
     private Address fromDto(AddressPost addressPost) throws ParseException {
         Address address = new Address(null, addressPost.getStreet(), addressPost.getZipcode(), addressPost.getNumber(), addressPost.getPriotiryAddress(), null, null);
-        Person person = new Person(addressPost.getPersonId(), null, null, null, null);
+        Person person = personService.findPersonByID(addressPost.getPersonId());
         City city = cityService.findCityByID(addressPost.getCityId());
+        verifyPriority(addressPost);
+        findPriorityAddress(person, addressPost);
         address.setCity(city);
         address.setPerson(person);
-        findPriorityAddress(person, addressPost);
         return address;
     }
 
@@ -70,13 +72,20 @@ public class AddressService {
         return addressRepository.findAll().stream().map(obj -> new AddressAll(obj)).collect(Collectors.toList());
     }
 
-    private void findPriorityAddress(Person person, AddressPost addressPost) {
-        for (Address x : person.getAddresses()) {
+    private void findPriorityAddress(Person personEntity, AddressPost addressPost) {
+        for (Address x : personEntity.getAddresses()) {
             if (x.getPriorityAddress() == 'Y' && addressPost.getPriotiryAddress() == 'Y') {
-                logger.error("m=insertAddressForPerson stage=error charInvalid={}", addressPost.getPriotiryAddress());
+                logger.error("m=changePerson stage=error personEntity={} addressPost={}", personEntity.getName(), addressPost.getPriotiryAddress());
                 throw new CustomExceptions("This person already has an address as a priority, please change the person's reference or priority status");
             }
             return;
+        }
+    }
+
+    private void verifyPriority(AddressPost addressPost) {
+        if(addressPost.getPriotiryAddress() != 'Y' && addressPost.getPriotiryAddress() != 'N'){
+            logger.error("m=changePerson stage=error personPut={}", addressPost);
+            throw new CustomExceptions("Error: use Y for true and N for false.");
         }
     }
 
