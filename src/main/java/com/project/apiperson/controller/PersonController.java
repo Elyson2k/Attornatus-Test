@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.mail.MessagingException;
 import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
@@ -55,7 +56,7 @@ public class PersonController {
     }
 
     @PostMapping
-    public ResponseEntity<Void> insertPerson(@Valid @RequestBody PersonPost personPost){
+    public ResponseEntity<Void> insertPerson(@Valid @RequestBody PersonPost personPost) {
         logger.info("m=insertPerson stage=init personPost={}", personPost);
         var id = personService.insertPerson(personPost).getId();
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(id).toUri();

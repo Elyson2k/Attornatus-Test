@@ -17,4 +17,3 @@ spring:
   flyway:
     enabled: true
     baselineOnMigrate: true
-

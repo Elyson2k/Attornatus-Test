@@ -12,10 +12,9 @@ import com.project.apiperson.service.exceptions.ObjectNotFoundException;
 import com.project.apiperson.service.exceptions.CustomExceptions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
+import javax.mail.MessagingException;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -27,6 +26,7 @@ public class PersonService {
     private final PersonRepository personRepository;
 
     private final AddressRepository addressRepository;
+
 
     public PersonService(PersonRepository personRepository, AddressRepository addressRepository) {
         this.personRepository = personRepository;
@@ -60,6 +60,7 @@ public class PersonService {
     public Person chancePerson(PersonPut updatePerson){
         Person person = findPersonByID(updatePerson.getId());
         update(person, updatePerson);
+        verifyPriority(updatePerson);
         personRepository.save(person);
         return person;
     }
@@ -100,6 +101,13 @@ public class PersonService {
                 throw new CustomExceptions("This person already has an address as a priority, please change the person's reference or priority status");
             }
             return;
+        }
+    }
+
+    private void verifyPriority(PersonPut updatePerson) {
+        if(updatePerson.getPriorityAddress() != 'Y' && updatePerson.getPriorityAddress() != 'N'){
+            logger.error("m=changePerson stage=error personPut={}", updatePerson);
+            throw new CustomExceptions("Error: use Y for true and N for false.");
         }
     }
 

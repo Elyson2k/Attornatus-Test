@@ -25,6 +25,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import javax.mail.MessagingException;
 import java.net.URI;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -105,7 +106,7 @@ class PersonControllerTest {
     }
 
     @Test
-    void insertPerson() {
+    void insertPerson() throws MessagingException {
         var response = personController.insertPerson(personPost);
         assertNotNull(response);
         assertEquals(HttpStatus.CREATED, response.getStatusCode());

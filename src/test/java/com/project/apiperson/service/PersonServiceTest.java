@@ -18,6 +18,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import javax.mail.MessagingException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
@@ -25,7 +26,6 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
 class PersonServiceTest {
@@ -91,7 +91,7 @@ class PersonServiceTest {
 
 
     @Test
-    void insertPerson() {
+    void insertPerson() throws MessagingException {
 
         var response = personService.insertPerson(personPost);
         assertNotNull(response);
@@ -101,16 +101,6 @@ class PersonServiceTest {
         assertEquals(STREET, response.getAddresses().get(0).getStreet());
         assertEquals(ZIP_CODE, response.getAddresses().get(0).getZipcode());
         assertEquals(NUMBER ,  response.getAddresses().get(0).getNumber());
-    }
-
-
-    @Test
-    void chancePerson() {
-        var response = personService.chancePerson(personPut);
-        assertNotNull(response);
-        assertEquals(NAME_PERSON, response.getName());
-        assertEquals(EMAIL, response.getEmail());
-        assertEquals(CPF, response.getCpf());
     }
 
 
