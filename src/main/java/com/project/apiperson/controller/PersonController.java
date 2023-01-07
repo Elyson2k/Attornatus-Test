@@ -26,7 +26,7 @@ public interface PersonController {
 
     @Operation(description = "Change person")
     @PutMapping(value = "/{id}")
-    ResponseEntity<Void> updatePerson(@PathVariable Integer id,@Valid @RequestBody PersonPut person);
+    ResponseEntity<Void> updatePerson(@PathVariable Integer id, @Valid @RequestBody PersonPut person);
 
     @Operation(description = "Inserting person")
     @PostMapping

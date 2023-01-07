@@ -40,6 +40,7 @@ public class PersonService {
     }
 
     public Person findPersonByID(Integer id){
+        logger.info("m=findPersonByID stage=init id={}", id);
         return personRepository.findById(id)
                 .orElseThrow(() -> {
                     logger.error("m=findPersonByID stage=error id={}", id);
@@ -48,6 +49,7 @@ public class PersonService {
     }
 
     public List<PersonAll> findAllPerson(){
+        logger.info("m=findAllPerson stage=init");
         List<PersonAll> listPerson = personRepository.findAll()
                 .stream()
                 .map(PersonAll::new)
@@ -56,11 +58,13 @@ public class PersonService {
             logger.error("m=findAllPerson stage=error listPerson={}", listPerson);
             throw new CustomExceptions("Error: no person found.");
         }
+        logger.info("m=findAllPerson stage=finish persons={}", listPerson);
         return listPerson;
     }
 
     @Transactional
     public Person insertPerson(PersonPost person){
+        logger.info("m=insertPerson stage=init person={}", person);
         findEmail(person);
         Person personEntity = fromDto(person)
                 .setConfirmationToken(UUID.randomUUID())
@@ -68,22 +72,27 @@ public class PersonService {
         personRepository.save(personEntity);
         addressRepository.saveAll(personEntity.getAddresses());
         emailService.sendSimpleMessage(personEntity);
+        logger.info("m=changePerson stage=finish");
         return personEntity;
     }
 
     public String confirmAccount(String confirmationToken){
+        logger.info("m=confirmAccount stage=init confirmationToken={}", confirmationToken);
         Person person = personRepository.findByConfirmationToken(UUID.fromString(confirmationToken)).orElseThrow(() -> {
-            logger.error("m=changePerson stage=error personEntity={} confirmationToken={}", confirmationToken);
+            logger.error("m=changePerson stage=error confirmationToken={}", confirmationToken);
             return new CustomExceptions("Error: we can't verify your account");
         });
         person.setAccountVerified(true);
         personRepository.save(person);
+        logger.info("m=confirmAccout stage=finish");
         return SUCCESS_VERIFICATION;
     }
 
     public PersonPut changePerson(Integer id, PersonPut person) {
+        logger.info("m=changePerson stage=init id={} person={}", id, person);
         person.setId(id);
         var newPerson = updatePerson(person);
+        logger.info("m=changePerson stage=finish");
         return new PersonPut(newPerson);
     }
 
@@ -106,6 +115,7 @@ public class PersonService {
     }
 
     public void findEmail(PersonPost person){
+        logger.info("m=findEmail stage=init email={}", person.getEmail());
         Optional<Person> findEmail = personRepository.findByEmail(person.getEmail());
         if(findEmail.isPresent()){
             logger.error("m=findEmail stage=error findEmail={}", findEmail.get().getEmail());

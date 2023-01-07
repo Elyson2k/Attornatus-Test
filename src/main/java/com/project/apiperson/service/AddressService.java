@@ -36,6 +36,7 @@ public class AddressService {
     }
 
     public Address findAddressById(Integer id){
+        logger.info("m=findAddressById stage=init id={}", id);
         return addressRepository.findById(id).orElseThrow( () -> {
             logger.error("m=findAddressById stage=error id={}", id);
             return new ObjectNotFoundException("Error: Entity not found.");
@@ -43,6 +44,7 @@ public class AddressService {
     }
 
     public List<AddressAll> findAllAddresses(){
+        logger.info("m=findAllAddresses stage=init");
         List<AddressAll> listAddress = addressRepository.findAll()
                 .stream()
                 .map(AddressAll::new)
@@ -51,12 +53,15 @@ public class AddressService {
             logger.error("m=findAllAddresses stage=error listAddress={}", listAddress);
             throw new CustomExceptions("Error: no person found.");
         }
+        logger.info("m=findAllAddresses stage=finish persons={}", listAddress);
         return listAddress;
     }
 
     public Address insertAddressForPerson(AddressPost addressPost) {
+        logger.info("m=insertAddressForPerson stage=init addressPost={}", addressPost);
         Address address = fromDto(addressPost);
         addressRepository.save(address);
+        logger.info("m=insertAddressForPerson stage=finish");
         return address;
     }
 

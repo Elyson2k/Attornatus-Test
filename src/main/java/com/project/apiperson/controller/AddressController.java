@@ -15,13 +15,13 @@ public interface AddressController {
 
     @Operation(description = "Find address")
     @GetMapping(value = "/{id}")
-    public ResponseEntity<AddressDto> findAddress(@PathVariable Integer id);
+    ResponseEntity<AddressDto> findAddress(@PathVariable Integer id);
 
     @Operation(description = "Find all addresses")
     @GetMapping
-    public ResponseEntity<List<AddressAll>> findAllAddress();
+    ResponseEntity<List<AddressAll>> findAllAddress();
 
     @Operation(description = "Inserting address")
     @PostMapping
-    public ResponseEntity<Void> insertAddressForPerson(@RequestBody AddressPost addressPost);
+    ResponseEntity<Void> insertAddressForPerson(@RequestBody AddressPost addressPost);
 }

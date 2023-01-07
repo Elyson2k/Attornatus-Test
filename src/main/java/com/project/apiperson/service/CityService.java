@@ -17,8 +17,8 @@ import java.util.stream.Collectors;
 @Service
 public class CityService {
 
-    private final Logger logger = LoggerFactory.getLogger(AddressControllerImpl.class);
-    private CityRepository cityRepository;
+    private final Logger logger = LoggerFactory.getLogger(CityService.class);
+    private final CityRepository cityRepository;
 
     public CityService(CityRepository cityRepository) {
         this.cityRepository = cityRepository;
