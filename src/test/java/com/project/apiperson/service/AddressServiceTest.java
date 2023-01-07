@@ -84,7 +84,7 @@ class AddressServiceTest {
     public void startUser() throws ParseException {
         SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
         City city = new City(ID, CITY);
-        person = new Person(ID, NAME_PERSON, EMAIL, CPF , sdf.parse(DATE));
+        person = new Person(ID, NAME_PERSON, EMAIL, CPF , sdf.parse(DATE), null, false);
         address = new Address(ID, STREET, ZIP_CODE, NUMBER, PRIOTIRY_ADDRESS, person, city);
         addressOptional = Optional.of(address);
         addressAll = new AddressAll(ID, STREET, ZIP_CODE, NUMBER, PRIOTIRY_ADDRESS);

@@ -1,6 +1,6 @@
 package com.project.apiperson.service;
 
-import com.project.apiperson.controller.AddressController;
+
 import com.project.apiperson.domain.dto.*;
 import com.project.apiperson.domain.entities.Address;
 import com.project.apiperson.domain.entities.City;
@@ -13,64 +13,95 @@ import com.project.apiperson.service.exceptions.CustomExceptions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
 public class PersonService {
 
-    private final Logger logger = LoggerFactory.getLogger(AddressController.class);
+    public static final String SUCCESS_VERIFICATION = "<h1>congratulations, your account has been verified!</h1>";
+    private final Logger logger = LoggerFactory.getLogger(PersonService.class);
     private final PersonRepository personRepository;
 
     private final CityService cityService;
     private final AddressRepository addressRepository;
 
+    private final EmailService emailService;
 
-    public PersonService(PersonRepository personRepository, CityService cityService, AddressRepository addressRepository) {
+    public PersonService(PersonRepository personRepository, CityService cityService, AddressRepository addressRepository, EmailService emailService) {
         this.personRepository = personRepository;
         this.cityService = cityService;
         this.addressRepository = addressRepository;
+        this.emailService = emailService;
     }
 
     public Person findPersonByID(Integer id){
-        Optional<Person> person = personRepository.findById(id);
-        if(!(person.isPresent())){
-            logger.error("m=findPersonByID stage=error id={}", id);
-            throw new ObjectNotFoundException("Error: Entity not found.");
-        } else return person.get();
+        return personRepository.findById(id)
+                .orElseThrow(() -> {
+                    logger.error("m=findPersonByID stage=error id={}", id);
+                    return new ObjectNotFoundException("Error: Entity not found.");
+                });
     }
 
     public List<PersonAll> findAllPerson(){
-        List<PersonAll> listPerson = personRepository.findAll().stream().map( obj -> new PersonAll(obj)).collect(Collectors.toList());
+        List<PersonAll> listPerson = personRepository.findAll()
+                .stream()
+                .map(PersonAll::new)
+                .collect(Collectors.toList());
         if(listPerson.isEmpty()){
             logger.error("m=findAllPerson stage=error listPerson={}", listPerson);
             throw new CustomExceptions("Error: no person found.");
-        } else return listPerson;
+        }
+        return listPerson;
     }
 
+    @Transactional
     public Person insertPerson(PersonPost person){
         findEmail(person);
-        Person personEntity = fromDto(person);
+        Person personEntity = fromDto(person)
+                .setConfirmationToken(UUID.randomUUID())
+                .setAccountVerified(false);
         personRepository.save(personEntity);
         addressRepository.saveAll(personEntity.getAddresses());
+        emailService.sendSimpleMessage(personEntity);
         return personEntity;
     }
 
-    public Person chancePerson(PersonPut updatePerson){
+    public String confirmAccount(String confirmationToken){
+        Person person = personRepository.findByConfirmationToken(UUID.fromString(confirmationToken)).orElseThrow(() -> {
+            logger.error("m=changePerson stage=error personEntity={} confirmationToken={}", confirmationToken);
+            return new CustomExceptions("Error: we can't verify your account");
+        });
+        person.setAccountVerified(true);
+        personRepository.save(person);
+        return SUCCESS_VERIFICATION;
+    }
+
+    public PersonPut changePerson(Integer id, PersonPut person) {
+        person.setId(id);
+        var newPerson = updatePerson(person);
+        return new PersonPut(newPerson);
+    }
+
+    private Person updatePerson(PersonPut updatePerson){
         Person person = findPersonByID(updatePerson.getId());
         update(person, updatePerson);
-        verifyPriority(updatePerson);
+        validatePriority(updatePerson);
         personRepository.save(person);
         return person;
     }
-
 
     private void update(Person p1, PersonPut p2){
         p1.setName(p2.getName());
         p1.setEmail(p2.getEmail());
         findPriorityAddress(p1,p2);
+        if(p2.getAddressId() > p1.getAddresses().size() || p2.getAddressId() < p1.getAddresses().size()) {
+            throw new CustomExceptions("Error: numbers beetwen = 1 and " + p1.getAddresses().size());
+        }
         p1.getAddresses().get( (p2.getAddressId() -1 )).setPriorityAddress(p2.getPriorityAddress());
     }
 
@@ -98,18 +129,22 @@ public class PersonService {
     private void findPriorityAddress(Person personEntity, PersonPut person) {
         for (Address x : personEntity.getAddresses()) {
             if (x.getPriorityAddress() == 'Y' && person.getPriorityAddress() == 'Y') {
-                logger.error("m=changePerson stage=error personEntity={} personPut={}", personEntity.getName(), person.getName());
+                logger.error("m=changePerson stage=error personEntity={} person={}", personEntity.getName(), person.getName());
                 throw new CustomExceptions("This person already has an address as a priority, please change the person's reference or priority status");
             }
             return;
         }
     }
 
-    private void verifyPriority(PersonPut updatePerson) {
-        if(updatePerson.getPriorityAddress() != 'Y' && updatePerson.getPriorityAddress() != 'N'){
-            logger.error("m=changePerson stage=error personPut={}", updatePerson);
+    private void validatePriority(PersonPut person) {
+        if(isValidPriority(person)){
+            logger.error("m=changePerson stage=error person={}", person);
             throw new CustomExceptions("Error: use Y for true and N for false.");
         }
+    }
+
+    private static boolean isValidPriority(PersonPut person) {
+        return person.getPriorityAddress() != 'Y' && person.getPriorityAddress() != 'N';
     }
 
 }

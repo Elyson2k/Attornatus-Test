@@ -138,12 +138,18 @@ class PersonServiceTest {
         }
     }
 
+    @Test
+    void test(){
+        var response = personService.changePerson(ID, personPut);
+        assertNotNull(response);
+    }
+
 
     public void startUser() throws ParseException {
         SimpleDateFormat sdf = new SimpleDateFormat(DATE_FORMAT);
 
         City city = new City(ID, CITY);
-        person = new Person(ID, NAME_PERSON, EMAIL, CPF , sdf.parse(DATE));
+        person = new Person(ID, NAME_PERSON, EMAIL, CPF , sdf.parse(DATE), null, false);
         address = new Address(ID, STREET, ZIP_CODE, 100, PRIOTIRY_ADDRESS, person, city);
         personAll = new PersonAll(ID, NAME_PERSON, EMAIL, CPF, sdf.parse(DATE));
         personDto = new PersonDto(ID, NAME_PERSON, EMAIL, CPF , sdf.parse(DATE));
