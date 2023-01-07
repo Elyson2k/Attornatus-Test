@@ -37,7 +37,7 @@ public class Person {
         this.name = name;
         this.email = email;
         this.cpf = cpf;
-        this.dateOfBirth = dateOfBirth  ;
+        this.dateOfBirth = dateOfBirth;
         this.confirmationToken = confirmationToken;
         this.accountVerified = accountVerified;
     }

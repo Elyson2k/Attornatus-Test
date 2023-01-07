@@ -17,6 +17,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 public class PersonDto {
 
@@ -37,17 +38,23 @@ public class PersonDto {
 
     @Temporal(TemporalType.DATE)
     private Date dateOfBirth;
+
+    private UUID confirmationToken;
+
+    private boolean accountVerified = true;
     private List<Address> addresses = new ArrayList<>();
 
     public PersonDto() {
     }
 
-    public PersonDto(Integer id, String name, String email, String cpf, Date dateOfBirth) {
+    public PersonDto(Integer id, String name, String email, String cpf, Date dateOfBirth, UUID confirmationToken, boolean accountVerified) {
         this.id = id;
         this.name = name;
         this.email = email;
         this.cpf = cpf;
         this.dateOfBirth = dateOfBirth;
+        this.confirmationToken = confirmationToken;
+        this.accountVerified = accountVerified;
     }
 
     public PersonDto(Person person) {
@@ -57,6 +64,7 @@ public class PersonDto {
         this.cpf = person.getCpf();
         this.dateOfBirth = person.getDateOfBirth();
         this.addresses = person.getAddresses();
+        this.confirmationToken = person.getConfirmationToken();
     }
 
     public Integer getId() {
@@ -99,6 +107,25 @@ public class PersonDto {
     public String getCpf() {
         return cpfMask(cpf);
     }
+
+    public UUID getConfirmationToken() {
+        return confirmationToken;
+    }
+
+    public PersonDto setConfirmationToken(UUID confirmationToken) {
+        this.confirmationToken = confirmationToken;
+        return this;
+    }
+
+    public boolean isAccountVerified() {
+        return accountVerified;
+    }
+
+    public PersonDto setAccountVerified(boolean accountVerified) {
+        this.accountVerified = accountVerified;
+        return this;
+    }
+
 
     public String cpfMask(String cpf) {
         return String.format("%s.%s.%s-%s", cpf.substring(0, 3), cpf.substring(3, 6), cpf.substring(6, 9), cpf.substring(9));

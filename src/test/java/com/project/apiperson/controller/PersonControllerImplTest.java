@@ -111,8 +111,8 @@ class PersonControllerImplTest {
         City city = new City(ID, CITY);
         person = new Person(ID, NAME_PERSON, EMAIL, CPF , sdf.parse(DATE), null, false);
         address = new Address(ID, STREET, ZIP_CODE, 100, PRIOTIRY_ADDRESS, person, city);
-        personAll = new PersonAll(ID, NAME_PERSON, EMAIL, CPF, sdf.parse(DATE));
-        personDto = new PersonDto(ID, NAME_PERSON, EMAIL, CPF , sdf.parse(DATE));
+        personAll = new PersonAll(ID, NAME_PERSON, EMAIL, CPF, sdf.parse(DATE), null, false);
+        personDto = new PersonDto(ID, NAME_PERSON, EMAIL, CPF , sdf.parse(DATE), null, false);
         personPut = new PersonPut(ID,NAME_PERSON,EMAIL, NUMBER, PRIOTIRY_ADDRESS);
         personPost = new PersonPost(NAME_PERSON, EMAIL, CPF, sdf.parse(DATE), STREET, ZIP_CODE, NUMBER, PRIOTIRY_ADDRESS , NUMBER);
         optionalPersonDto = Optional.of(person);

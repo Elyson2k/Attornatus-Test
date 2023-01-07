@@ -5,6 +5,7 @@ import com.project.apiperson.domain.entities.Person;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import java.util.Date;
+import java.util.UUID;
 
 public class PersonAll {
     private Integer id;
@@ -12,6 +13,10 @@ public class PersonAll {
     private String email;
 
     private String cpf;
+
+    private UUID confirmationToken;
+
+    private boolean accountVerified = true;
     @Temporal(TemporalType.DATE)
     private Date dateOfBirth;
 
@@ -19,12 +24,14 @@ public class PersonAll {
 
     }
 
-    public PersonAll(Integer id, String name, String email, String cpf, Date dateOfBirth) {
+    public PersonAll(Integer id, String name, String email, String cpf, Date dateOfBirth, UUID confirmationToken, boolean accountVerified) {
         this.id = id;
         this.name = name;
         this.email = email;
         this.cpf = cpf;
         this.dateOfBirth = dateOfBirth;
+        this.confirmationToken = confirmationToken;
+        this.accountVerified = accountVerified;
     }
 
     public PersonAll(Person person) {
@@ -33,6 +40,7 @@ public class PersonAll {
         this.email = person.getEmail();
         this.cpf = person.getCpf();
         this.dateOfBirth = person.getDateOfBirth();
+        this.confirmationToken = person.getConfirmationToken();
     }
 
     public Integer getId() {
@@ -59,6 +67,24 @@ public class PersonAll {
 
     public PersonAll setEmail(String email) {
         this.email = email;
+        return this;
+    }
+
+    public UUID getConfirmationToken() {
+        return confirmationToken;
+    }
+
+    public PersonAll setConfirmationToken(UUID confirmationToken) {
+        this.confirmationToken = confirmationToken;
+        return this;
+    }
+
+    public boolean isAccountVerified() {
+        return accountVerified;
+    }
+
+    public PersonAll setAccountVerified(boolean accountVerified) {
+        this.accountVerified = accountVerified;
         return this;
     }
 

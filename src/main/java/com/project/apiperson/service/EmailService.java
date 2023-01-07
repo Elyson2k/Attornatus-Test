@@ -16,7 +16,7 @@ public class EmailService {
 
     public void sendSimpleMessage(Person person) {
         SimpleMailMessage message = new SimpleMailMessage();
-        message.setFrom("email que vai enviar as coisas abaixo");
+        message.setFrom("email-que-vai-mandar-os-email");
         message.setTo(person.getEmail());
         message.setSubject("[CHECK YOUR ACCOUT] Hello, welcome to Eloware!!!");
         message.setText(buildEmailMessage(person));
