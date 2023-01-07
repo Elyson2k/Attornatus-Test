@@ -16,8 +16,8 @@ public class MailConfig {
         mailSender.setHost("outlook.office365.com");
         mailSender.setPort(587);
 
-        mailSender.setUsername("elysonvinicius@outlook.com");
-        mailSender.setPassword("elisondota3");
+        mailSender.setUsername("seuemail");
+        mailSender.setPassword("sua-senhadoemail");
 
         Properties props = mailSender.getJavaMailProperties();
         props.put("mail.smtp.auth", "true");

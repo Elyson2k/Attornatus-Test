@@ -16,7 +16,7 @@ public class EmailService {
 
     public void sendSimpleMessage(Person person) {
         SimpleMailMessage message = new SimpleMailMessage();
-        message.setFrom("elysonvinicius@outlook.com");
+        message.setFrom("email que vai enviar as coisas abaixo");
         message.setTo(person.getEmail());
         message.setSubject("[CHECK YOUR ACCOUT] Hello, welcome to Eloware!!!");
         message.setText(buildEmailMessage(person));
@@ -26,7 +26,7 @@ public class EmailService {
     private static String buildEmailMessage(Person personEntity) {
         StringBuilder builder;
         builder = new StringBuilder();
-        builder.append("Clique nesse link para confirmar sua conta: ");
+        builder.append("Click here to confirm your account: ");
         builder.append("http://localhost:8080/api/v1/persons/confirmAccount?confirmationToken=");
         builder.append(personEntity.getConfirmationToken().toString());
         return builder.toString();
