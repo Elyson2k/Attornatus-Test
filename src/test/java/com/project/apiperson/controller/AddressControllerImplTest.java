@@ -1,5 +1,6 @@
 package com.project.apiperson.controller;
 
+import com.project.apiperson.controller.impl.AddressControllerImpl;
 import com.project.apiperson.domain.dto.AddressAll;
 import com.project.apiperson.domain.dto.AddressDto;
 import com.project.apiperson.domain.dto.AddressPost;
@@ -21,7 +22,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 
-class AddressControllerTest {
+class AddressControllerImplTest {
 
     public static final int ID = 1;
     public static final String STREET = "Rua";
@@ -30,7 +31,7 @@ class AddressControllerTest {
     public static final Character PRIOTIRY_ADDRESS = 'N';
 
     @InjectMocks
-    private AddressController addressController;
+    private AddressControllerImpl addressControllerImpl;
     @Mock
     private AddressService addressService;
     private AddressAll addressAll;
@@ -50,7 +51,7 @@ class AddressControllerTest {
 
     @Test
     void findAddress() {
-        var response = addressController.findAddress(ID);
+        var response = addressControllerImpl.findAddress(ID);
         assertNotNull(response);
         assertEquals(ID, response.getBody().getId());
         assertEquals(STREET, response.getBody().getStreet());
@@ -60,7 +61,7 @@ class AddressControllerTest {
 
     @Test
     void findAllAddresses() {
-        var response = addressController.findAllAddress();
+        var response = addressControllerImpl.findAllAddress();
         assertNotNull(response);
         assertEquals(ID, response.getBody().get(0).getId());
         assertEquals(STREET, response.getBody().get(0).getStreet());
@@ -70,7 +71,7 @@ class AddressControllerTest {
 
     @Test
     void insertAddressForPerson() throws ParseException {
-        var response = addressController.insertAddressForPerson(addressPost);
+        var response = addressControllerImpl.insertAddressForPerson(addressPost);
         assertNotNull(response);
         assertEquals(HttpStatus.CREATED, response.getStatusCode());
     }
