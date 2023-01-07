@@ -4,16 +4,35 @@ INSERT INTO tb_city (name) VALUES ('Belo Horizonte');
 INSERT INTO tb_city (name) VALUES ('Porto Alegre');
 INSERT INTO tb_city (name) VALUES ('Salvador');
 
-INSERT INTO tb_person (name, email, cpf, date_of_birth) VALUES ('Elyson', 'elyson@outlook.com', '12345678910', '1990-01-01');
-INSERT INTO tb_person (name, email, cpf, date_of_birth) VALUES ('Maria', 'maria@email.com', '10987654321', '1995-03-15');
-INSERT INTO tb_person (name, email, cpf, date_of_birth) VALUES ('Pedro', 'pedro@email.com', '01234567890', '1985-05-30');
-INSERT INTO tb_person (name, email, cpf, date_of_birth) VALUES ('Ana', 'ana@email.com', '98765432109', '1980-07-14');
-INSERT INTO tb_person (name, email, cpf, date_of_birth) VALUES ('Carlos', 'carlos@email.com', '12312312345', '1970-09-29');
-INSERT INTO tb_person (name, email, cpf, date_of_birth) VALUES ('Bruna', 'bruna@email.com', '56789012340', '1975-11-13');
-INSERT INTO tb_person (name, email, cpf, date_of_birth) VALUES ('José', 'jose@email.com', '45678901234', '1995-01-01');
-INSERT INTO tb_person (name, email, cpf, date_of_birth) VALUES ('Luiza', 'luiza@email.com', '89012345678', '2000-03-15');
-INSERT INTO tb_person (name, email, cpf, date_of_birth) VALUES ('Rafael', 'rafael@email.com', '01234567890', '2005-05-30');
-INSERT INTO tb_person (name, email, cpf, date_of_birth) VALUES ('Sara', 'sara@email.com', '98765432109', '2010-07-14');
+INSERT INTO tb_person (name, email, cpf, date_of_birth, confirmation_token, account_verified)
+VALUES ('John Doe', 'john.doe@example.com', '123-456-789-00', '2000-01-01', '01234567-abcd-0123-abcd-0123456789ab', true);
+
+INSERT INTO tb_person (name, email, cpf, date_of_birth, confirmation_token, account_verified)
+VALUES ('Jane Doe', 'jane.doe@example.com', '123-456-789-01', '2001-01-01', '01234567-abcd-0123-abcd-0123456789ab', true);
+
+INSERT INTO tb_person (name, email, cpf, date_of_birth, confirmation_token, account_verified)
+VALUES ('Bob Smith', 'bob.smith@example.com', '123-456-789-02', '2002-01-01', '01234567-abcd-0123-abcd-0123456789ab', true);
+
+INSERT INTO tb_person (name, email, cpf, date_of_birth, confirmation_token, account_verified)
+VALUES ('Alice Smith', 'alice.smith@example.com', '123-456-789-03', '2003-01-01', '01234567-abcd-0123-abcd-0123456789ab', true);
+
+INSERT INTO tb_person (name, email, cpf, date_of_birth, confirmation_token, account_verified)
+VALUES ('Tom Johnson', 'tom.johnson@example.com', '123-456-789-04', '2004-01-01', '01234567-abcd-0123-abcd-0123456789ab', true);
+
+INSERT INTO tb_person (name, email, cpf, date_of_birth, confirmation_token, account_verified)
+VALUES ('Jerry Johnson', 'jerry.johnson@example.com', '123-456-789-05', '2005-01-01', '01234567-abcd-0123-abcd-0123456789ab', true);
+
+INSERT INTO tb_person (name, email, cpf, date_of_birth, confirmation_token, account_verified)
+VALUES ('Sue Williams', 'sue.williams@example.com', '123-456-789-06', '2006-01-01', '01234567-abcd-0123-abcd-0123456789ab', true);
+
+INSERT INTO tb_person (name, email, cpf, date_of_birth, confirmation_token, account_verified)
+VALUES ('Harry Williams', 'harry.williams@example.com', '123-456-789-07', '2007-01-01', '01234567-abcd-0123-abcd-0123456789ab', true);
+
+INSERT INTO tb_person (name, email, cpf, date_of_birth, confirmation_token, account_verified)
+VALUES ('Chris Anderson', 'chris.anderson@example.com', '123-456-789-08', '2008-01-01', '01234567-abcd-0123-abcd-0123456789ab', true);
+
+INSERT INTO tb_person (name, email, cpf, date_of_birth, confirmation_token, account_verified)
+VALUES ('Emma Anderson', 'emma.anderson@example.com', '123-456-789-09', '2009-01-01', '01234567-abcd-0123-abcd-0123456789ab', true);
 
 INSERT INTO tb_address (street, zipcode, number, priorityaddress, person_id, city_id) VALUES ('Rua das Flores', '12345678', 123, 'Y', 1, 1);
 INSERT INTO tb_address (street, zipcode, number, priorityaddress, person_id, city_id) VALUES ('Rua dos Jardins', '98765432', 456, 'N', 2, 2);
