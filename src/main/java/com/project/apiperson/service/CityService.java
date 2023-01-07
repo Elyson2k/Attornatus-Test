@@ -1,6 +1,6 @@
 package com.project.apiperson.service;
 
-import com.project.apiperson.controller.AddressController;
+import com.project.apiperson.controller.impl.AddressControllerImpl;
 import com.project.apiperson.domain.entities.City;
 import com.project.apiperson.domain.dto.CityDto;
 import com.project.apiperson.repository.CityRepository;
@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
 @Service
 public class CityService {
 
-    private final Logger logger = LoggerFactory.getLogger(AddressController.class);
+    private final Logger logger = LoggerFactory.getLogger(AddressControllerImpl.class);
     private CityRepository cityRepository;
 
     public CityService(CityRepository cityRepository) {
@@ -25,11 +25,10 @@ public class CityService {
     }
 
     public City findCityByID(Integer id){
-        Optional<City> city = cityRepository.findById(id);
-        if(!(city.isPresent())) {
-            logger.error("m=findCityByID stage=error id={}", id);
-            throw new ObjectNotFoundException("Error: Entity not found.");
-        } else return city.get();
+        return cityRepository.findById(id).orElseThrow( () -> {
+            logger.error("m=findAddressById stage=error id={}", id);
+            return new ObjectNotFoundException("Error: Entity not found.");
+        });
     }
 
     public List<CityDto> findAllCity(){

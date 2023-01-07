@@ -8,7 +8,9 @@ CREATE TABLE tb_person(
     name varchar(255),
     email varchar(255),
     cpf varchar(255),
-    date_of_birth datetime(6) NOT NULL
+    date_of_birth datetime(6) NOT NULL,
+    confirmation_token UUID,
+    account_verified boolean NOT NULL
 );
 
 CREATE TABLE tb_address(

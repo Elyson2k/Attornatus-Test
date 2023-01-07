@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @OpenAPIDefinition(
         info = @Info(
-                title = "API SearchProdutos",
+                title = "CRUD Person",
                 version = "1.0",
                 termsOfService = "Terms of service",
                 contact = @Contact(

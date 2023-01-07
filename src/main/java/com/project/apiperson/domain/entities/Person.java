@@ -1,13 +1,9 @@
 package com.project.apiperson.domain.entities;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.ToString;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
-import java.text.DateFormat;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.*;
 
 @Entity
@@ -29,15 +25,21 @@ public class Person {
     @OneToMany(mappedBy = "person", fetch = FetchType.EAGER)
     private List<Address> addresses = new ArrayList<>();
 
+    private UUID confirmationToken;
+
+    private boolean accountVerified;
+
     public Person() {
     }
 
-    public Person(Integer id, String name, String email, String cpf, Date dateOfBirth) throws ParseException {
+    public Person(Integer id, String name, String email, String cpf, Date dateOfBirth, UUID confirmationToken, boolean accountVerified) throws ParseException {
         this.id = id;
         this.name = name;
         this.email = email;
         this.cpf = cpf;
         this.dateOfBirth = dateOfBirth  ;
+        this.confirmationToken = confirmationToken;
+        this.accountVerified = accountVerified;
     }
 
     public Integer getId() {
@@ -94,6 +96,24 @@ public class Person {
         return this;
     }
 
+    public UUID getConfirmationToken() {
+        return confirmationToken;
+    }
+
+    public Person setConfirmationToken(UUID confirmationToken) {
+        this.confirmationToken = confirmationToken;
+        return this;
+    }
+
+    public boolean isAccountVerified() {
+        return accountVerified;
+    }
+
+    public Person setAccountVerified(boolean accountVerified) {
+        this.accountVerified = accountVerified;
+        return this;
+    }
+
     @Override
     public String toString() {
         return "Person{" +
@@ -105,4 +125,5 @@ public class Person {
                 ", addresses=" + addresses +
                 '}';
     }
+
 }
