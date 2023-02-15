@@ -25,4 +25,17 @@ public class TokenService {
                 .signWith(SignatureAlgorithm.HS256, "oqPdOpK8eh9K&yV^VcYhJ9sjzerG7rk7e8ZGrY19KkN@eYiz2H").compact();
     }
 
+    public Boolean isTokenValid(String token) {
+        try {
+            Jwts.parser().setSigningKey("oqPdOpK8eh9K&yV^VcYhJ9sjzerG7rk7e8ZGrY19KkN@eYiz2H").parseClaimsJws(token);
+            return true;
+        } catch (Exception e){
+            return false;
+        }
+    }
+
+    public Integer getIdUser(String token) {
+        var claims = Jwts.parser().setSigningKey("oqPdOpK8eh9K&yV^VcYhJ9sjzerG7rk7e8ZGrY19KkN@eYiz2H").parseClaimsJws(token).getBody();
+        return Integer.parseInt(claims.getSubject());
+    }
 }

@@ -2,6 +2,7 @@ package com.project.apiperson.controller.impl;
 
 import com.project.apiperson.config.security.TokenService;
 import com.project.apiperson.domain.LoginForm;
+import com.project.apiperson.domain.entities.DadosLogin;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -25,13 +26,13 @@ public class AuthenticationController {
     private TokenService tokenService;
 
     @PostMapping
-    public ResponseEntity<?> autenticar(@Valid @RequestBody LoginForm loginForm){
+    public ResponseEntity<DadosLogin> autenticar(@Valid @RequestBody LoginForm loginForm){
         UsernamePasswordAuthenticationToken dadosLogin = new UsernamePasswordAuthenticationToken(loginForm.getEmail(), loginForm.getSenha());
         try {
             Authentication authentication = authenticationManager.authenticate(dadosLogin);
             String token = tokenService.gerarToken(authentication);
 
-            return ResponseEntity.ok().build();
+            return ResponseEntity.ok(new DadosLogin(token, loginForm.getEmail()));
         } catch (AuthenticationException e){
             return ResponseEntity.badRequest().build();
         }
