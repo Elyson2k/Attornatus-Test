@@ -7,6 +7,7 @@ CREATE TABLE tb_person(
     id INT AUTO_INCREMENT PRIMARY KEY,
     name varchar(255),
     email varchar(255),
+    senha varchar(255),
     cpf varchar(255),
     date_of_birth datetime(6) NOT NULL,
     confirmation_token UUID,
