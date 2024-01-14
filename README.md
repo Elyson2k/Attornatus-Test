@@ -61,7 +61,7 @@ o Cidade
 Fazer um clone do projeto:
 
 ```text
-git clone https://github.com/Elyson2k/finch-estagio.git
+git clone https://github.com/Elyson2k/Attornatus-Test.git/
 ```
 
 Isso fará com que o banco de dados da aplicação rode em um container Docker.
